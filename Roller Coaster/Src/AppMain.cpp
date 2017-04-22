@@ -482,6 +482,17 @@ advanceTrain(float dir)
 	//#####################################################################
 	// TODO: make this work for your train
 
+	trainview->t_time += (dir / m_Track.points.size() / (trainview->DIVIDE_LINE / 40));
+	if (trainview->t_time > 1.0f)
+		trainview->t_time -= 1.0f;
+
+	if (this->trainview->isrun) {
+		if (clock() - lastRedraw > CLOCKS_PER_SEC / 30) {
+			lastRedraw = clock();
+			this->advanceTrain();
+			this->damageMe();
+		}
+	}
 
 	//#####################################################################
 }

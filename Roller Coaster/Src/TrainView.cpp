@@ -205,59 +205,75 @@ void TrainView::drawStuff(bool doingShadows)
 	// TODO: 
 	// call your own track drawing code
 	//####################################################################
-
-	if (this->curve == 0) {
-		for (size_t i = 0; i < this->m_pTrack->points.size(); ++i) {
-			Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
-			Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
-			Pnt3f cp_orient_p1 = m_pTrack->points[i].orient;
-			Pnt3f cp_orient_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].orient;
-
-			float t = 0;
-
-			int DIVIDE_LINE = 20;
-			float percent = 1.0f / DIVIDE_LINE;
-			Pnt3f qt0, qt1, qt;
-			Pnt3f lastcross_t;
-			glLineWidth(5);
-			glShadeModel(GL_SMOOTH);
-
-			qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
-			for (size_t j = 0; j < DIVIDE_LINE; j++) {
-				qt0 = qt;
-				Pnt3f orient_t = (1 - t) * cp_orient_p1 + t * cp_orient_p2;
-				t += percent;
-				qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
-				qt1 = qt;
-				orient_t.normalize();
-				Pnt3f cross_t = (qt1 + -1 * qt0) * orient_t;
-				cross_t.normalize();
-				cross_t = cross_t * 2.5f;
-				if (j == 0)
-					lastcross_t = cross_t;
-
-				if (!doingShadows) {
-					glColor3ub(32, 32, 64);
-				}
-				glBegin(GL_LINES);
-				glVertex3f(qt0.x + lastcross_t.x, qt0.y + lastcross_t.y, qt0.z + lastcross_t.z);
-				glVertex3f(qt1.x + cross_t.x, qt1.y + cross_t.y, qt1.z + cross_t.z);
-				glVertex3f(qt0.x - lastcross_t.x, qt0.y - lastcross_t.y, qt0.z - lastcross_t.z);
-				glVertex3f(qt1.x - cross_t.x, qt1.y - cross_t.y, qt1.z - cross_t.z);
-				glEnd();
-				glBegin(GL_LINES);
-				if (!doingShadows) {
-					glColor3ub(255, 255, 255);
-				}
-				glVertex3f(qt1.x + cross_t.x, qt1.y + cross_t.y, qt1.z + cross_t.z);
-				glVertex3f(qt1.x - cross_t.x, qt1.y - cross_t.y, qt1.z - cross_t.z);
-				glEnd();
-				lastcross_t = cross_t;
+	for (size_t i = 0; i < this->m_pTrack->points.size(); ++i) {
+		Pnt3f qt0, qt1, qt;
+		Pnt3f lastcross_t;
+		Pnt3f orient_t, cross_t;
+		DIVIDE_LINE = 15;
+		float percent = 1.0f / DIVIDE_LINE;
+		float t = 0;
+		Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
+		Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
+		Pnt3f cp_orient_p1 = m_pTrack->points[i].orient;
+		Pnt3f cp_orient_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].orient;
+		qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+		for (size_t j = 0; j < DIVIDE_LINE; j++) {
+			qt0 = qt;
+			switch (curve) {
+			case 0:
+				orient_t = (1 - t) * cp_orient_p1 + t * cp_orient_p2;
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
 			}
+			t += percent;
+			switch (curve) {
+			case 0:
+				qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			}
+			
+			qt1 = qt;
+			orient_t.normalize();
+			cross_t = (qt1 + -1 * qt0) * orient_t;
+			cross_t.normalize();
+			cross_t = cross_t * 2.5f;
+			if (j == 0)
+				lastcross_t = cross_t;
 
+			if (!doingShadows) {
+				glColor3ub(32, 32, 64);
+			}
+			glEnable(GL_LINE_SMOOTH);
+			glLineWidth(8);
+			glBegin(GL_LINES);
+			glVertex3f(qt0.x + lastcross_t.x, qt0.y + lastcross_t.y, qt0.z + lastcross_t.z);
+			glVertex3f(qt1.x + cross_t.x, qt1.y + cross_t.y, qt1.z + cross_t.z);
+			glVertex3f(qt0.x - lastcross_t.x, qt0.y - lastcross_t.y, qt0.z - lastcross_t.z);
+			glVertex3f(qt1.x - cross_t.x, qt1.y - cross_t.y, qt1.z - cross_t.z);
+			glEnd();
+
+			glLineWidth(5);
+			glBegin(GL_LINES);
+			if (!doingShadows) {
+				glColor3ub(255, 255, 255);
+			}
+			glVertex3f(qt1.x + 1.5*cross_t.x, qt1.y + 1.5*cross_t.y, qt1.z + 1.5*cross_t.z);
+			glVertex3f(qt1.x - 1.5*cross_t.x, qt1.y - 1.5*cross_t.y, qt1.z - 1.5*cross_t.z);
+			glEnd();
+			lastcross_t = cross_t;
 		}
-		update();
 	}
+	update();
+}
+
+	
 
 
 #ifdef EXAMPLE_SOLUTION
@@ -274,7 +290,7 @@ void TrainView::drawStuff(bool doingShadows)
 	if (!tw->trainCam->value())
 		drawTrain(this, doingShadows);
 #endif
-}
+
 
 void TrainView::
 doPick(int mx, int my)

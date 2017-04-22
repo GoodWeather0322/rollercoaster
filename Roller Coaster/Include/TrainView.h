@@ -53,6 +53,8 @@ public:
 
 	CTrack*			m_pTrack;		// The track of the entire scene
 
+	int DIVIDE_LINE;
+	int t_time;
 	int camera;
 	int curve;
 	int track;

@@ -47,6 +47,8 @@ public:
 	// pick a point (for when the mouse goes down)
 	void doPick(int mx, int my);
 
+	void drawTrain(float);
+
 public:
 	ArcBallCam		arcball;			// keep an ArcBall for the UI
 	int				selectedCube;  // simple - just remember which cube is selected

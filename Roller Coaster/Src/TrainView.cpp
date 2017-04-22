@@ -112,6 +112,7 @@ void TrainView::paintGL()
 	if (this->camera != 1) {
 		setupShadows();
 		drawStuff(true);
+		drawTrain(1);
 		unsetupShadows();
 	}
 }
@@ -273,6 +274,37 @@ void TrainView::drawStuff(bool doingShadows)
 	update();
 }
 
+void TrainView::drawTrain(float) {
+	size_t t = 20;
+	t *= m_pTrack->points.size();
+	size_t i;
+	for (i = 0; t > 1; t -= 1)
+		i++;
+	//pos
+	Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
+	Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
+
+	// orient
+	Pnt3f cp_orient_p1 = m_pTrack->points[i].orient;
+	Pnt3f cp_orient_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].orient;
+
+	Pnt3f qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+	Pnt3f orient_t = (1 - t) * cp_orient_p1 + t * cp_orient_p2;
+
+	glColor3ub(255, 255, 255);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 5);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 5);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 5);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 5);
+	glEnd();
+
+	update();
+}
 	
 
 

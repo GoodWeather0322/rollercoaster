@@ -1,0 +1,26 @@
+﻿  Uic'ing AppMain.ui...
+  Moc'ing TrainView.h...
+  Moc'ing AppMain.h...
+  Rcc'ing AppMain.qrc...
+  qrc_AppMain.cpp
+  moc_AppMain.cpp
+d:\rollercoaster\rollercoaster\roller coaster\generatedfiles\release\../../Include/AppMain.h(4): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  moc_TrainView.cpp
+d:\rollercoaster\rollercoaster\roller coaster\generatedfiles\release\../../Include/TrainView.h(3): fatal error C1083: 無法開啟包含檔案: 'QtOpenGL/QGLWidget': No such file or directory
+  AppMain.cpp
+.\Include\AppMain.h(4): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  ControlPoint.cpp
+.\Include\Utilities/3dUtils.h(31): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  main.cpp
+.\Include\AppMain.h(4): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  Track.cpp
+Src\Track.cpp(169): warning C4477: 'fprintf' : 格式字串 '%d' 需要 'int' 類型的引數，但 variadic 引數 1 的類型為 'unsigned __int64'
+  Src\Track.cpp(169): note: 請考慮在格式字串中使用 '%zd'
+  TrainView.cpp
+.\Include\TrainView.h(3): fatal error C1083: 無法開啟包含檔案: 'QtOpenGL/QGLWidget': No such file or directory
+  3DUtils.cpp
+.\Include\Utilities/3DUtils.h(31): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  ArcBallCam.cpp
+.\Include\Utilities/3DUtils.h(31): fatal error C1083: 無法開啟包含檔案: 'QtWidgets/QMainWindow': No such file or directory
+  Pnt3f.cpp
+  正在產生程式碼...

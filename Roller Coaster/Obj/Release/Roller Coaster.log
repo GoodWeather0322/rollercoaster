@@ -1,0 +1,48 @@
+﻿Build started 2015/5/6 下午 04:24:56.
+     1>Project "C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Roller Coaster\Roller Coaster.vcxproj" on node 2 (build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>InitializeBuildStatus:
+         Touching "Obj\Release\Roller Coaster.unsuccessfulbuild".
+       CustomBuild:
+         All outputs are up-to-date.
+       ClCompile:
+         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I. /I.\Include /I.\GeneratedFiles /I.\GeneratedFiles\Release /IC:\Qt\Qt5.2.0\5.2.0\msvc2010_opengl\include /IC:\Qt\Qt5.2.0\5.2.0\msvc2010_opengl\include\QtCore /IC:\Qt\Qt5.2.0\5.2.0\msvc2010_opengl\include\QtGui /IC:\Qt\Qt5.2.0\5.2.0\msvc2010_opengl\include\QtWidgets /I"D:\OgreSDK_vc10_v1-8-1\include" /I"D:\OgreSDK_vc10_v1-8-1\include\OGRE" /I"D:\OgreSDK_vc10_v1-8-1\include\OIS" /I"D:\OgreSDK_vc10_v1-8-1\boost" /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /D _CONSOLE /D _MBCS /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Obj\Release\\" /Fd"Obj\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Src\TrainView.cpp
+         TrainView.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Win32\Release\\Roller Coaster.exe" /NOLOGO qtmain.lib Qt5Core.lib Qt5Gui.lib Qt5Widgets.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Obj\Release\Roller Coaster.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Win32\Release\Roller Coaster.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Win32\Release\Roller Coaster.lib" /MACHINE:X86 Obj\Release\qrc_AppMain.obj
+         Obj\Release\moc_AppMain.obj
+         Obj\Release\moc_TrainView.obj
+         Obj\Release\AppMain.obj
+         Obj\Release\ControlPoint.obj
+         Obj\Release\main.obj
+         Obj\Release\Track.obj
+         Obj\Release\TrainView.obj
+         Obj\Release\3DUtils.obj
+         Obj\Release\ArcBallCam.obj
+         Obj\Release\Pnt3f.obj
+     1>moc_TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual void * __thiscall QGLWidget::qt_metacast(char const *)" (__imp_?qt_metacast@QGLWidget@@UAEPAXPBD@Z) referenced in function "public: virtual void * __thiscall TrainView::qt_metacast(char const *)" (?qt_metacast@TrainView@@UAEPAXPBD@Z)
+     1>moc_TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual int __thiscall QGLWidget::qt_metacall(enum QMetaObject::Call,int,void * *)" (__imp_?qt_metacall@QGLWidget@@UAEHW4Call@QMetaObject@@HPAPAX@Z) referenced in function "public: virtual int __thiscall TrainView::qt_metacall(enum QMetaObject::Call,int,void * *)" (?qt_metacall@TrainView@@UAEHW4Call@QMetaObject@@HPAPAX@Z)
+     1>moc_TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: static struct QMetaObject const QGLWidget::staticMetaObject" (__imp_?staticMetaObject@QGLWidget@@2UQMetaObject@@B) referenced in function "void __cdecl `dynamic initializer for 'public: static struct QMetaObject const TrainView::staticMetaObject''(void)" (??__E?staticMetaObject@TrainView@@2UQMetaObject@@B@@YAXXZ)
+     1>TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall QGLWidget::~QGLWidget(void)" (__imp_??1QGLWidget@@UAE@XZ) referenced in function "public: virtual __thiscall TrainView::~TrainView(void)" (??1TrainView@@UAE@XZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual bool __thiscall QGLWidget::event(class QEvent *)" (?event@QGLWidget@@MAE_NPAVQEvent@@@Z)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::paintEvent(class QPaintEvent *)" (?paintEvent@QGLWidget@@MAEXPAVQPaintEvent@@@Z)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::resizeEvent(class QResizeEvent *)" (?resizeEvent@QGLWidget@@MAEXPAVQResizeEvent@@@Z)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall QGLWidget::updateGL(void)" (?updateGL@QGLWidget@@UAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall QGLWidget::updateOverlayGL(void)" (?updateOverlayGL@QGLWidget@@UAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::initializeGL(void)" (?initializeGL@QGLWidget@@MAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::resizeGL(int,int)" (?resizeGL@QGLWidget@@MAEXHH@Z)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::initializeOverlayGL(void)" (?initializeOverlayGL@QGLWidget@@MAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::resizeOverlayGL(int,int)" (?resizeOverlayGL@QGLWidget@@MAEXHH@Z)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::paintOverlayGL(void)" (?paintOverlayGL@QGLWidget@@MAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::glInit(void)" (?glInit@QGLWidget@@MAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "protected: virtual void __thiscall QGLWidget::glDraw(void)" (?glDraw@QGLWidget@@MAEXXZ)
+     1>TrainView.obj : error LNK2001: unresolved external symbol "public: virtual class QPaintEngine * __thiscall QGLWidget::paintEngine(void)const " (?paintEngine@QGLWidget@@UBEPAVQPaintEngine@@XZ)
+     1>TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall QGLWidget::QGLWidget(class QWidget *,class QGLWidget const *,class QFlags<enum Qt::WindowType>)" (__imp_??0QGLWidget@@QAE@PAVQWidget@@PBV0@V?$QFlags@W4WindowType@Qt@@@@@Z) referenced in function "public: __thiscall TrainView::TrainView(class QWidget *)" (??0TrainView@@QAE@PAVQWidget@@@Z)
+     1>TrainView.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall QGLWidget::makeCurrent(void)" (__imp_?makeCurrent@QGLWidget@@QAEXXZ) referenced in function "public: void __thiscall TrainView::doPick(int,int)" (?doPick@TrainView@@QAEXHH@Z)
+     1>C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Win32\Release\\Roller Coaster.exe : fatal error LNK1120: 19 unresolved externals
+     1>Done Building Project "C:\Users\Oscar\Desktop\P3\02RollerCoaster_Water\Roller Coaster\Roller Coaster.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:23.06

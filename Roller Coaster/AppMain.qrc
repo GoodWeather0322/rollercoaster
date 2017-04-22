@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="/AppMain">
+    <file>slider_handle.png</file>
+    <file>mdelete.png</file>
+    <file>madd.png</file>
+    <file>mplay.png</file>
+    <file>Resources/Icons/pause.ico</file>
+    <file>down_arrow.ico</file>
+    <file>Resources/Icons/play.ico</file>
+    <file>Resources/Icons/openfile.ico</file>
+    <file>Resources/Icons/savefile.ico</file>
+  </qresource>
+</RCC>

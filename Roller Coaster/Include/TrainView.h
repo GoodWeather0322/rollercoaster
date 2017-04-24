@@ -9,6 +9,7 @@
 #include "Utilities/ArcBallCam.H"
 #include "Utilities/3DUtils.H"
 #include "Track.H"
+#include <LoadObjModel\Model.h>
 
 class AppMain;
 class CTrack;
@@ -55,12 +56,13 @@ public:
 
 	CTrack*			m_pTrack;		// The track of the entire scene
 
+	Model *arrow;
 	int DIVIDE_LINE;
-	int t_time;
 	int camera;
 	int curve;
 	int track;
 	bool isrun;
+	float t_time=0;
 
 };  
 #endif // TRAINVIEW_H  

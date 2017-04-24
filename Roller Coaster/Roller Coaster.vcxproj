@@ -180,6 +180,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Load3DSModel\3DSLoader.cpp" />
+    <ClCompile Include="Load3DSModel\CBMPLoader.cpp" />
+    <ClCompile Include="Load3DSModel\vector.cpp" />
+    <ClCompile Include="LoadObjModel\Model.cpp" />
     <ClCompile Include="Src\AppMain.cpp" />
     <ClCompile Include="Src\ControlPoint.cpp" />
     <ClCompile Include="Src\main.cpp" />
@@ -215,6 +219,11 @@
     <ClInclude Include="GeneratedFiles\ui_AppMain.h" />
     <ClInclude Include="Include\ControlPoint.H" />
     <ClInclude Include="Include\Track.H" />
+    <ClInclude Include="Load3DSModel\3DSLoader.h" />
+    <ClInclude Include="Load3DSModel\CbmpLoader.h" />
+    <ClInclude Include="Load3DSModel\vector.h" />
+    <ClInclude Include="LoadObjModel\Model.h" />
+    <ClInclude Include="LoadObjModel\point3d.h" />
     <CustomBuild Include="Include\TrainView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

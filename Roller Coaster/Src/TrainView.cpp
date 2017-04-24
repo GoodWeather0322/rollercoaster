@@ -1,9 +1,11 @@
 #include "TrainView.h"  
 
+
 TrainView::TrainView(QWidget *parent) :
 	QGLWidget(parent)
 {
 	resetArcball();
+	arrow = new Model("Mickey_Mouse.obj", 1, Point3d(0, 0, 0));
 }
 TrainView::~TrainView()
 {}
@@ -107,13 +109,19 @@ void TrainView::paintGL()
 	setupObjects();
 
 	drawStuff();
-
+	drawTrain(1);
 	// this time drawing is for shadows (except for top view)
 	if (this->camera != 1) {
 		setupShadows();
 		drawStuff(true);
-		drawTrain(1);
 		unsetupShadows();
+	}
+	if (isrun) {
+		/*if (clock() - lastRedraw > CLOCKS_PER_SEC / 30) {
+			lastRedraw = clock();
+			this->advanceTrain();
+			this->damageMe();
+		}*/
 	}
 }
 
@@ -213,8 +221,15 @@ void TrainView::drawStuff(bool doingShadows)
 		DIVIDE_LINE = 15;
 		float percent = 1.0f / DIVIDE_LINE;
 		float t = 0;
+		//first two
 		Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
 		Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
+
+		//for curved tracks
+		Pnt3f cp_pos_p3 = m_pTrack->points[(i + 2) % m_pTrack->points.size()].pos;
+		Pnt3f cp_pos_p4 = m_pTrack->points[(i + 3) % m_pTrack->points.size()].pos;
+
+
 		Pnt3f cp_orient_p1 = m_pTrack->points[i].orient;
 		Pnt3f cp_orient_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].orient;
 		qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
@@ -275,7 +290,14 @@ void TrainView::drawStuff(bool doingShadows)
 }
 
 void TrainView::drawTrain(float) {
-	size_t t = 20;
+
+	glPushMatrix();
+	glColor3ub(255, 0, 0);
+	glTranslatef(0, 10, 0);
+	glScalef(10, 10, 10);
+	arrow->render();
+	glPopMatrix();
+	size_t t = 1;
 	t *= m_pTrack->points.size();
 	size_t i;
 	for (i = 0; t > 1; t -= 1)

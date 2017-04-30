@@ -4,7 +4,7 @@ TrainView::TrainView(QWidget *parent) :
 	QGLWidget(parent)
 {
 	resetArcball();
-	arrow = new Model("Mickey_Mouse.obj", 1, Point3d(0, 0, 0));
+	arrow = new Model("train.obj", 3, Point3d(0, 0, 0));
 
 }
 TrainView::~TrainView()
@@ -433,6 +433,9 @@ void TrainView::drawStuff(bool doingShadows)
 				break;
 			case 1:
 				glEnable(GL_LINE_SMOOTH);
+				if (!doingShadows) {
+					glColor3ub(32, 32, 64);
+				}
 				glLineWidth(8);
 				glBegin(GL_LINES);
 				glVertex3f(qt0.x + lastcross_t.x, qt0.y + lastcross_t.y, qt0.z + lastcross_t.z);
@@ -559,146 +562,142 @@ void TrainView::drawStuff(bool doingShadows)
 
 void TrainView::drawTrain(float) {
 
-	glPushMatrix();
-	//glColor3ub(255, 0, 0);
-	glTranslatef(0, 10, 0);
-	glScalef(10, 10, 10);
-	arrow->render();
-	glPopMatrix();
-
-
-
-	size_t t = 1;
-	t *= m_pTrack->points.size();
-	size_t i;
-	for (i = 0; t > 1; t -= 1)
-		i++;
-	//pos
-	Pnt3f cp_pos_p1 = m_pTrack->points[0].pos;
-	Pnt3f cp_pos_p2 = m_pTrack->points[0].pos;
-
 	// orient
 	float currentTime = time;
 	float v = 1.0f / interpos.size();
 	int position = currentTime / v;
 	//printf("%d\n", position);
 	
-	Pnt3f nowPos = interpos[position%interpos.size()];
-	Pnt3f nowOrt = interorient[position%interpos.size()];
+	//Pnt3f nowPos = interpos[(position + 1) % interpos.size()];
+	//Pnt3f prePos = interpos[position % interpos.size()];
+	//Pnt3f nextPos = interpos[(position + 2) % interpos.size()];
 
-	Pnt3f nextPos = interpos[(position + 1)%interpos.size()];
-	Pnt3f nextOrt = interorient[(position + 1)%interpos.size()];
+	//Pnt3f nowOrt = interorient[position % interpos.size()];
+	//nowOrt.normalize();
 
-	nowOrt.normalize();
-	float trainLength = 7.0f;
-	Pnt3f trainVector = nextPos + -1 * nowPos;
-	float distance = sqrt(pow(trainVector.x, 2) + pow(trainVector.y, 2) + pow(trainVector.z, 2));
-	float mul = trainLength / distance;
-	trainVector = trainVector * mul;
-	Pnt3f cross_t = (nextPos + -1 * nowPos) * nowOrt;
-	cross_t.normalize();
-	cross_t = cross_t * 4.0f;
-	Pnt3f p1(nowPos.x + cross_t.x + trainVector.x, nowPos.y + cross_t.y + trainVector.y, nowPos.z + cross_t.z + trainVector.z);
-	Pnt3f p2(nowPos.x + cross_t.x - trainVector.x, nowPos.y + cross_t.y - trainVector.y, nowPos.z + cross_t.z - trainVector.z);
-	Pnt3f p3(nowPos.x - cross_t.x - trainVector.x, nowPos.y - cross_t.y - trainVector.y, nowPos.z - cross_t.z - trainVector.z);
-	Pnt3f p4(nowPos.x - cross_t.x + trainVector.x, nowPos.y - cross_t.y + trainVector.y, nowPos.z - cross_t.z + trainVector.z);
+	//Pnt3f firstVec = nowPos + -1 * prePos;
+	//Pnt3f secondVec = nextPos + -1 * nowPos;
+
+	//glPushMatrix();
+	////glColor3ub(255, 0, 0);
+	//glTranslatef(nowPos.x, nowPos.y, nowPos.z);
+	//glRotatef(90, nowOrt.x, nowOrt.y, nowOrt.z);
+	//glScalef(5, 10, 10);
+	//arrow->render();
+	//glPopMatrix();
+
+	for (int i = 0; i < 3; i++) {
+		Pnt3f nowPos = interpos[position%interpos.size()];
+		Pnt3f nowOrt = interorient[position%interpos.size()];
+
+		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
+		Pnt3f nextOrt = interorient[(position + 1) % interpos.size()];
+
+		nowOrt.normalize();
+		float trainLength = 5.0f;
+		Pnt3f trainDir = nextPos + -1 * nowPos;
+		float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
+		float scaleL = trainLength / distanceL;
+		trainDir = trainDir * scaleL;
+		Pnt3f cross_t = (nextPos + -1 * nowPos) * nowOrt;
+		cross_t.normalize();
+		cross_t = cross_t * 4.0f;
+
+		Pnt3f higher = nowOrt;
+		higher.normalize();
+		higher = higher*2;
+
+		Pnt3f p1(nowPos.x + cross_t.x + trainDir.x + higher.x, nowPos.y + cross_t.y + trainDir.y + higher.y, nowPos.z + cross_t.z + trainDir.z + higher.z);
+		Pnt3f p2(nowPos.x + cross_t.x - trainDir.x + higher.x, nowPos.y + cross_t.y - trainDir.y + higher.y, nowPos.z + cross_t.z - trainDir.z + higher.z);
+		Pnt3f p3(nowPos.x - cross_t.x - trainDir.x + higher.x, nowPos.y - cross_t.y - trainDir.y + higher.y, nowPos.z - cross_t.z - trainDir.z + higher.z);
+		Pnt3f p4(nowPos.x - cross_t.x + trainDir.x + higher.x, nowPos.y - cross_t.y + trainDir.y + higher.y, nowPos.z - cross_t.z + trainDir.z + higher.z);
+
+		float trainHeight = 5.0f;
+		float distanceH = sqrt(pow(nowOrt.x, 2) + pow(nowOrt.y, 2) + pow(nowOrt.z, 2));
+		float scaleH = trainHeight / distanceH;
+		nowOrt = nowOrt * scaleH;
+
+		Pnt3f p5(p1.x + nowOrt.x, p1.y + nowOrt.y, p1.z + nowOrt.z);
+		Pnt3f p6(p2.x + nowOrt.x, p2.y + nowOrt.y, p2.z + nowOrt.z);
+		Pnt3f p7(p3.x + nowOrt.x, p3.y + nowOrt.y, p3.z + nowOrt.z);
+		Pnt3f p8(p4.x + nowOrt.x, p4.y + nowOrt.y, p4.z + nowOrt.z);
 
 
-	Pnt3f qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+		glColor3ub(80, 200, 80);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p1.x, p1.y, p1.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p2.x, p2.y, p2.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p3.x, p3.y, p3.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p4.x, p4.y, p4.z);
+		glEnd();
 
-	glColor3ub(40, 255, 40);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(p1.x, p1.y, p1.z);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(p2.x, p2.y, p2.z);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(p3.x, p3.y, p3.z);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(p4.x, p4.y, p4.z);
-	glEnd();
+		glColor3ub(200, 40, 40);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p5.x, p5.y, p5.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p6.x, p6.y, p6.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p7.x, p7.y, p7.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p8.x, p8.y, p8.z);
+		glEnd();
 
-	/*glColor3ub(255, 255, 40);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 5);
-	glEnd();*/
-	/*glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 15);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 15);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 15);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 15);
-	glEnd();
-	glColor3ub(5, 255, 255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 15);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 15);
-	glEnd();
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 15);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 15);
-	glEnd();
-	glColor3ub(5, 25, 255);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 15);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 15);
-	glEnd();
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 15);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 15);
-	glEnd();
-	*/
-	cp_pos_p2 = m_pTrack->points[m_pTrack->points.size() - 1].pos;
+		glColor3ub(200, 200, 80);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p1.x, p1.y, p1.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p4.x, p4.y, p4.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p8.x, p8.y, p8.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p5.x, p5.y, p5.z);
+		glEnd();
 
-	// orient
+		glColor3ub(80, 200, 200);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p1.x, p1.y, p1.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p2.x, p2.y, p2.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p6.x, p6.y, p6.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p5.x, p5.y, p5.z);
+		glEnd();
 
-	qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+		glColor3ub(200, 80, 200);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p2.x, p2.y, p2.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p3.x, p3.y, p3.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p7.x, p7.y, p7.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p6.x, p6.y, p6.z);
+		glEnd();
 
-	glColor3ub(255, 0, 0);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(qt.x - 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(qt.x + 5, qt.y - 5, qt.z - 5);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(qt.x + 5, qt.y + 5, qt.z - 5);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(qt.x - 5, qt.y + 5, qt.z - 5);
-	glEnd();
+		glColor3ub(200, 160, 80);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(p3.x, p3.y, p3.z);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(p4.x, p4.y, p4.z);
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(p8.x, p8.y, p8.z);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(p7.x, p7.y, p7.z);
+		glEnd();
+
+		position += 15;
+		position %= interpos.size();
+	}
 
 	update();
 }

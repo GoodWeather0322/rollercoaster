@@ -62,7 +62,10 @@ public:
 	int curve;
 	int track;
 	bool isrun;
-	float t_time=0;
+	float time=0;
+
+	vector<Pnt3f> interpos;
+	vector<Pnt3f> interorient;
 
 };  
 #endif // TRAINVIEW_H  

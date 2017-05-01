@@ -120,9 +120,11 @@ void TrainView::paintGL()
 	}
 	if (isrun) {
 		time += 0.1 / 40 / this->m_pTrack->points.size();
-		if (time > 1.0) time -= 1.0;
+		//if (time > 1.0) time -= 1.0;
+		if (time > 300000) time = 0;
+		
 	}
-	printf("%f\n", time);
+	//printf("%f\n", time);
 	interpos.clear();
 	interorient.clear();
 }
@@ -172,7 +174,7 @@ setProjection()
 	// put code for train view projection here!	
 	//####################################################################
 	else if (this->camera == 2) {
-		float currentTime = time;
+		float currentTime = time * speed / 33;
 		float v = 1.0f / interpos.size();
 		int position = currentTime / v;
 		float trainLength = 5.0f;
@@ -588,7 +590,7 @@ void TrainView::drawStuff(bool doingShadows)
 void TrainView::drawTrain(float) {
 
 	// orient
-	float currentTime = time;
+	float currentTime = time * speed / 33;
 	float v = 1.0f / interpos.size();
 	int position = currentTime / v;
 	//printf("%d\n", position);
@@ -723,7 +725,6 @@ void TrainView::drawTrain(float) {
 		position += 15;
 		position %= interpos.size();
 	}
-
 	update();
 }
 

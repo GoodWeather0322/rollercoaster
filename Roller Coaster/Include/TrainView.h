@@ -64,6 +64,7 @@ public:
 	bool isrun;
 	float time=0;
 
+	int speed = 50;
 	vector<Pnt3f> interpos;
 	vector<Pnt3f> interorient;
 

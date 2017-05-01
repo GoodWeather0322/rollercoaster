@@ -45,6 +45,7 @@ void TrainView::paintGL()
 	// prepare for projection
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	drawStuff();
 	setProjection();		// put the code to set up matrices here
 
 							//######################################################################
@@ -107,7 +108,8 @@ void TrainView::paintGL()
 	//*********************************************************************
 	glEnable(GL_LIGHTING);
 	setupObjects();
-
+	interpos.clear();
+	interorient.clear();
 	drawStuff();
 	drawTrain(1);
 	// this time drawing is for shadows (except for top view)
@@ -169,7 +171,30 @@ setProjection()
 	// TODO: 
 	// put code for train view projection here!	
 	//####################################################################
+	else if (this->camera == 2) {
+		float currentTime = time;
+		float v = 1.0f / interpos.size();
+		int position = currentTime / v;
+		float trainLength = 5.0f;
+		Pnt3f nowPos = interpos[position%interpos.size()];
+		Pnt3f nowOrt = interorient[position%interpos.size()];
+		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
+		Pnt3f trainDir = nextPos + -1 * nowPos;
+		float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
+		float scaleL = trainLength / distanceL;
+		trainDir = trainDir * scaleL * 2;
 
+		Pnt3f higher = nowOrt;
+		higher.normalize();
+		gluPerspective(90, aspect, 1, 300);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(nowPos.x+10*higher.x, nowPos.y+10*higher.y, nowPos.z+10*higher.z,
+			nowPos.x+10*higher.x + trainDir.x, nowPos.y+10*higher.y + trainDir.y, nowPos.z+ 10 * higher.z + trainDir.z,
+			nowOrt.x, nowOrt.y, nowOrt.z);
+		update();
+
+	}
 
 
 	else {

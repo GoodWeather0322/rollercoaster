@@ -119,6 +119,14 @@ void TrainView::paintGL()
 		unsetupShadows();
 	}
 	if (isrun) {
+		float currentTime = time * speed / 5;
+		float v = 1.0f / interpos.size();
+		int position = currentTime / v;
+		Pnt3f nowPos = interpos[position%interpos.size()];
+		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
+		Pnt3f trainDir = nextPos + -1 * nowPos;
+		float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
+
 		time += 0.1 / 40 / this->m_pTrack->points.size();
 		//if (time > 1.0) time -= 1.0;
 		if (time > 300000) time = 0;
@@ -162,7 +170,7 @@ setProjection()
 		// Set up the top camera drop mode to be orthogonal and set
 		// up proper projection matrix
 		glMatrixMode(GL_PROJECTION);
-		glOrtho(-wi, wi, -he, he, 200, -200);
+		glOrtho(-wi, wi, he, -he, 200, -200);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glRotatef(-90, 1, 0, 0);
@@ -174,7 +182,7 @@ setProjection()
 	// put code for train view projection here!	
 	//####################################################################
 	else if (this->camera == 2) {
-		float currentTime = time * speed / 33;
+		float currentTime = time * speed / 5;
 		float v = 1.0f / interpos.size();
 		int position = currentTime / v;
 		float trainLength = 5.0f;
@@ -258,6 +266,8 @@ void TrainView::drawStuff(bool doingShadows)
 	// TODO: 
 	// call your own track drawing code
 	//####################################################################
+
+	float arclength = 2;
 	Pnt3f lastpoints[2]; //first is the point second is the crosst
 	Pnt3f firstpoint[2]; //first point computed second is crosst
 	for (size_t i = 0; i < this->m_pTrack->points.size(); ++i) {
@@ -268,12 +278,12 @@ void TrainView::drawStuff(bool doingShadows)
 
 		Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
 		Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
-		Pnt3f arclength = (cp_pos_p1 + (-1 * cp_pos_p2));
-		float length = sqrt((arclength.x * arclength.x) + (arclength.y * arclength.y) + (arclength.z * arclength.z));
-		DIVIDE_LINE = (int)length;
+		Pnt3f pointlength = (cp_pos_p1 + (-1 * cp_pos_p2));
+		float length = sqrt((pointlength.x * pointlength.x) + (pointlength.y * pointlength.y) + (pointlength.z * pointlength.z));
+		DIVIDE_LINE = length * 75;
 		float percent = 1.0f / DIVIDE_LINE;
 		float t = 0;
-		int inter = 14;
+		int inter = 10;
 		int track_num = DIVIDE_LINE / inter;
 
 		//for curved tracks
@@ -334,77 +344,19 @@ void TrainView::drawStuff(bool doingShadows)
 			break;
 		}
 		for (size_t j = 0; j < DIVIDE_LINE; j++) {
+
 			qt0 = qt;
-			switch (curve) {
-			case 0:
-				orient_t = (1 - t) * cp_orient_p1 + t * cp_orient_p2;
-				break;
-			case 1:
-				orient_t.x = 0; orient_t.y = 0; orient_t.z = 0;
-				for (int k = 0; k < 4; k++) {
-					float temp = 0;
-					orient_t.x += QMcardinalorient(0, k)*tmatrix[k];
-					orient_t.y += QMcardinalorient(1, k)*tmatrix[k];
-					orient_t.z += QMcardinalorient(2, k)*tmatrix[k];
-				}
-				break;
-			case 2:
-				orient_t.x = 0; orient_t.y = 0; orient_t.z = 0;
-				for (int k = 0; k < 4; k++) {
-					float temp = 0;
-					orient_t.x += QMbsplineorient(0, k)*tmatrix[k];
-					orient_t.y += QMbsplineorient(1, k)*tmatrix[k];
-					orient_t.z += QMbsplineorient(2, k)*tmatrix[k];
-				}
-				break;
-			}
-			interpos.push_back(qt);
-			interorient.push_back(orient_t);
-			t += percent;
-			tmatrix[0] = pow(t, 3);
-			tmatrix[1] = pow(t, 2);
-			tmatrix[2] = t;
-			tmatrix[3] = 1;
-			switch (curve) {
-			case 0:
-				qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
-				break;
-			case 1:
-				qt.x = 0; qt.y = 0; qt.z = 0;
-				for (int k = 0; k < 4; k++) {
-					float temp = 0;
-					qt.x += QMcardinalpos(0, k)*tmatrix[k];
-					qt.y += QMcardinalpos(1, k)*tmatrix[k];
-					qt.z += QMcardinalpos(2, k)*tmatrix[k];
-				}
-				break;
-			case 2:
-				qt.x = 0; qt.y = 0; qt.z = 0;
-				for (int k = 0; k < 4; k++) {
-					float temp = 0;
-					qt.x += QMbsplinepos(0, k)*tmatrix[k];
-					qt.y += QMbsplinepos(1, k)*tmatrix[k];
-					qt.z += QMbsplinepos(2, k)*tmatrix[k];
-				}
-				break;
-			}
-
-			qt1 = qt;
-			orient_t.normalize();
-			cross_t = (qt1 + -1 * qt0) * orient_t;
-			cross_t.normalize();
-			cross_t = cross_t * 2.5f;
-			if (j == 0)
-				lastcross_t = cross_t;
-
-
-			if (!doingShadows) {
-				glColor3ub(32, 32, 64);
-			}
 			if (i == 0 && j == 0) {
 				firstpoint[0] = qt0;
 				firstpoint[1] = lastcross_t;
 			}
+			if (j == 0)
+				lastcross_t = cross_t;
+
+			if (!doingShadows) {
+				glColor3ub(32, 32, 64);
+			}
+
 			if (j == 0 && i > 0) {
 				glEnable(GL_LINE_SMOOTH);
 				switch (track) {
@@ -438,6 +390,84 @@ void TrainView::drawStuff(bool doingShadows)
 					break;
 				}
 			}
+
+
+			switch (curve) {
+			case 0:
+				orient_t = (1 - t) * cp_orient_p1 + t * cp_orient_p2;
+				break;
+			case 1:
+				orient_t.x = 0; orient_t.y = 0; orient_t.z = 0;
+				for (int k = 0; k < 4; k++) {
+					float temp = 0;
+					orient_t.x += QMcardinalorient(0, k)*tmatrix[k];
+					orient_t.y += QMcardinalorient(1, k)*tmatrix[k];
+					orient_t.z += QMcardinalorient(2, k)*tmatrix[k];
+				}
+				break;
+			case 2:
+				orient_t.x = 0; orient_t.y = 0; orient_t.z = 0;
+				for (int k = 0; k < 4; k++) {
+					float temp = 0;
+					orient_t.x += QMbsplineorient(0, k)*tmatrix[k];
+					orient_t.y += QMbsplineorient(1, k)*tmatrix[k];
+					orient_t.z += QMbsplineorient(2, k)*tmatrix[k];
+				}
+				break;
+			}
+			interpos.push_back(qt);
+			interorient.push_back(orient_t);
+			int distance = 0;
+			while (true) {
+				t += percent;
+				if (j >= DIVIDE_LINE-1) {
+					t = 1;
+				}
+				tmatrix[0] = pow(t, 3);
+				tmatrix[1] = pow(t, 2);
+				tmatrix[2] = t;
+				tmatrix[3] = 1;
+				switch (curve) {
+				case 0:
+					qt = (1 - t) * cp_pos_p1 + t * cp_pos_p2;
+					break;
+				case 1:
+					qt.x = 0; qt.y = 0; qt.z = 0;
+					for (int k = 0; k < 4; k++) {
+						float temp = 0;
+						qt.x += QMcardinalpos(0, k)*tmatrix[k];
+						qt.y += QMcardinalpos(1, k)*tmatrix[k];
+						qt.z += QMcardinalpos(2, k)*tmatrix[k];
+					}
+					break;
+				case 2:
+					qt.x = 0; qt.y = 0; qt.z = 0;
+					for (int k = 0; k < 4; k++) {
+						float temp = 0;
+						qt.x += QMbsplinepos(0, k)*tmatrix[k];
+						qt.y += QMbsplinepos(1, k)*tmatrix[k];
+						qt.z += QMbsplinepos(2, k)*tmatrix[k];
+					}
+					break;
+				}
+				Pnt3f trainDir = qt + -1 * qt0;
+				float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
+				distance += distanceL;
+				if (distance >= arclength || t==1)
+					break;
+				else {
+					j++;
+				}
+			}
+			distance = 0;
+				
+			qt1 = qt;
+			orient_t.normalize();
+			cross_t = (qt1 + -1 * qt0) * orient_t;
+			cross_t.normalize();
+			cross_t = cross_t * 2.5f;
+			
+
 			switch (track) {
 			case 0:
 				glEnable(GL_LINE_SMOOTH);
@@ -446,7 +476,7 @@ void TrainView::drawStuff(bool doingShadows)
 				glVertex3f(qt0.x, qt0.y, qt0.z);
 				glVertex3f(qt1.x, qt1.y, qt1.z);
 				glEnd();
-				if (j % inter == 0) {
+				if (interpos.size() % inter == 0) {
 					glLineWidth(5);
 					glBegin(GL_LINES);
 					if (!doingShadows) {
@@ -471,7 +501,7 @@ void TrainView::drawStuff(bool doingShadows)
 				glVertex3f(qt1.x - cross_t.x, qt1.y - cross_t.y, qt1.z - cross_t.z);
 				glEnd();
 
-				if (j % inter == 0) {
+				if (interpos.size() % inter == 0) {
 					glLineWidth(5);
 					glBegin(GL_LINES);
 					if (!doingShadows) {
@@ -494,7 +524,7 @@ void TrainView::drawStuff(bool doingShadows)
 				glVertex3f(qt1.x - cross_t.x, qt1.y - cross_t.y, qt1.z - cross_t.z);
 				glVertex3f(qt0.x - lastcross_t.x, qt0.y - lastcross_t.y, qt0.z - lastcross_t.z);
 				glEnd();
-				if (j % inter == 0) {
+				if (interpos.size() % inter == 0) {
 					glLineWidth(5);
 					glBegin(GL_LINES);
 					if (!doingShadows) {
@@ -508,13 +538,13 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 
 
-			if (j == DIVIDE_LINE - 1) {
+			if (t == 1) {
 				lastpoints[0] = qt1;
 				lastpoints[1] = cross_t;
 			}
 
 			//wraparound to the first point
-			if (j == DIVIDE_LINE - 1 && i == this->m_pTrack->points.size() - 1) {
+			if (t==1 && i == this->m_pTrack->points.size() - 1) {
 				switch (track) {
 				case 0:
 					if (!doingShadows) {
@@ -590,7 +620,7 @@ void TrainView::drawStuff(bool doingShadows)
 void TrainView::drawTrain(float) {
 
 	// orient
-	float currentTime = time * speed / 33;
+	float currentTime = time * speed / 5;
 	float v = 1.0f / interpos.size();
 	int position = currentTime / v;
 	//printf("%d\n", position);

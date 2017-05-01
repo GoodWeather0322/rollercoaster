@@ -1,12 +1,3 @@
-﻿  moc_AppMain.cpp
-  moc_TrainView.cpp
-  AppMain.cpp
-  ControlPoint.cpp
-  main.cpp
-  TrainView.cpp
-  3DUtils.cpp
-  ArcBallCam.cpp
-  Generating Code...
-  qrc_AppMain.cpp
+﻿  TrainView.cpp
   Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.exe
   Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.pdb (Full PDB)

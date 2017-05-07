@@ -21,6 +21,7 @@ AppMain::AppMain(QWidget *parent)
 	this->trainview->track = 0;
 	this->trainview->curve = 0;
 	this->trainview->isrun = false;
+	this->yplane = false;
 
 	setWindowTitle( "Roller Coaster" );
 
@@ -52,6 +53,9 @@ AppMain::AppMain(QWidget *parent)
 	connect( ui.rcpxsub		,SIGNAL(clicked()),this,SLOT(RotateControlPointSubX())				);
 	connect( ui.rcpzadd		,SIGNAL(clicked()),this,SLOT(RotateControlPointAddZ())					);
 	connect( ui.rcpzsub		,SIGNAL(clicked()),this,SLOT(RotateControlPointSubZ())				);
+
+	connect( ui.XZPlane	    ,SIGNAL(stateChanged(int)), this, SLOT(setControl())			);
+	 
 }
 
 AppMain::~AppMain()
@@ -117,11 +121,15 @@ bool AppMain::eventFilter(QObject *watched, QEvent *e) {
 				static_cast<double>(cp->pos.y),
 				static_cast<double>(cp->pos.z),
 				rx, ry, rz,
-				false);
-
-			cp->pos.x = (float) rx;
-			cp->pos.y = (float) ry;
-			cp->pos.z = (float) rz;
+				true);
+			
+			if(yplane)
+				cp->pos.y = (float)ry;
+			else {
+				cp->pos.x = (float)rx;
+				cp->pos.z = (float)rz;
+			}
+			
 		}
 		if(trainview->arcball.mode != trainview->arcball.None) { // we're taking the drags
 			float x,y;
@@ -487,4 +495,9 @@ advanceTrain(float dir)
 		trainview->time -= 1.0f;*/
 	
 	//#####################################################################
+}
+
+void AppMain::setControl()
+{
+	yplane = yplane ? false : true;
 }

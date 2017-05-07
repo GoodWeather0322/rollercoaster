@@ -3,6 +3,7 @@
 TrainView::TrainView(QWidget *parent) :
 	QGLWidget(parent)
 {
+
 	resetArcball();
 	arrow = new Model("train.obj", 3, Point3d(0, 0, 0));
 
@@ -58,6 +59,8 @@ void TrainView::paintGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	
+
 
 	// top view only needs one light
 	if (this->camera == 1) {
@@ -75,7 +78,7 @@ void TrainView::paintGL()
 	//
 	//**********************************************************************
 	GLfloat lightPosition1[] = { 0,1,1,0 }; // {50, 200.0, 50, 1.0};
-	GLfloat lightPosition2[] = { 1, 0, 0, 0 };
+	GLfloat lightPosition2[] = { 0, 1, 0, 0 };
 	GLfloat lightPosition3[] = { 0, -1, 0, 0 };
 	GLfloat yellowLight[] = { 0.5f, 0.5f, .1f, 1.0 };
 	GLfloat whiteLight[] = { 1.0f, 1.0f, 1.0f, 1.0 };
@@ -280,7 +283,7 @@ void TrainView::drawStuff(bool doingShadows)
 		Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
 		Pnt3f pointlength = (cp_pos_p1 + (-1 * cp_pos_p2));
 		float length = sqrt((pointlength.x * pointlength.x) + (pointlength.y * pointlength.y) + (pointlength.z * pointlength.z));
-		DIVIDE_LINE = length * 75;
+		DIVIDE_LINE = length * 70;
 		float percent = 1.0f / DIVIDE_LINE;
 		float t = 0;
 		int inter = 10;
@@ -308,6 +311,7 @@ void TrainView::drawStuff(bool doingShadows)
 		if (i == 0)
 			cp_orient_p0 = m_pTrack->points[m_pTrack->points.size() - 1].orient;
 		Pnt3f cp_orient_p3 = m_pTrack->points[(i + 2) % m_pTrack->points.size()].orient;
+
 		QMatrix4x4 qorientMatrix = {
 			cp_orient_p0.x,cp_orient_p1.x,cp_orient_p2.x,cp_orient_p3.x,
 			cp_orient_p0.y,cp_orient_p1.y,cp_orient_p2.y,cp_orient_p3.y,
@@ -635,14 +639,14 @@ void TrainView::drawTrain(float) {
 	//Pnt3f firstVec = nowPos + -1 * prePos;
 	//Pnt3f secondVec = nextPos + -1 * nowPos;
 
-	//glPushMatrix();
-	////glColor3ub(255, 0, 0);
-	//glTranslatef(nowPos.x, nowPos.y, nowPos.z);
-	//glRotatef(90, nowOrt.x, nowOrt.y, nowOrt.z);
-	//glScalef(5, 10, 10);
-	//arrow->render();
-	//glPopMatrix();
-
+	/*glPushMatrix();
+	glColor3ub(255, 0, 0);
+	glTranslatef(nowPos.x, nowPos.y, nowPos.z);
+	glRotatef(90, nowOrt.x, nowOrt.y, nowOrt.z);
+	glScalef(5, 10, 10);
+	arrow->render();
+	glPopMatrix();
+*/
 	for (int i = 0; i < 3; i++) {
 		Pnt3f nowPos = interpos[position%interpos.size()];
 		Pnt3f nowOrt = interorient[position%interpos.size()];
@@ -663,7 +667,6 @@ void TrainView::drawTrain(float) {
 		Pnt3f higher = nowOrt;
 		higher.normalize();
 		higher = higher*2;
-
 		Pnt3f p1(nowPos.x + cross_t.x + trainDir.x + higher.x, nowPos.y + cross_t.y + trainDir.y + higher.y, nowPos.z + cross_t.z + trainDir.z + higher.z);
 		Pnt3f p2(nowPos.x + cross_t.x - trainDir.x + higher.x, nowPos.y + cross_t.y - trainDir.y + higher.y, nowPos.z + cross_t.z - trainDir.z + higher.z);
 		Pnt3f p3(nowPos.x - cross_t.x - trainDir.x + higher.x, nowPos.y - cross_t.y - trainDir.y + higher.y, nowPos.z - cross_t.z - trainDir.z + higher.z);
@@ -752,7 +755,26 @@ void TrainView::drawTrain(float) {
 		glVertex3f(p7.x, p7.y, p7.z);
 		glEnd();
 
-		position += 15;
+		const float RADDEG = 57.29578;
+
+		float az = atan2(nowOrt.y, nowOrt.x)       * RADDEG;
+		float el = asin(nowOrt.z / 15) * RADDEG;
+
+		
+
+		/*glPushMatrix();
+		glColor3ub(255, 0, 0);
+		nowOrt.normalize();
+		glTranslatef(nowPos.x, nowPos.y, nowPos.z);
+		glRotatef();
+		glScalef(5, 10, 10);
+		arrow->render();
+		glPopMatrix();
+*/
+
+		position -= 15;
+		if (position < 0) 
+			position += interpos.size();
 		position %= interpos.size();
 	}
 	update();

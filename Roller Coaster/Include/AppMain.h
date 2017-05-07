@@ -46,6 +46,7 @@ public:
 
 	bool canpan;
 	bool isHover;
+	bool yplane;
 
 private:
 	void UpdateCameraState( int index );
@@ -87,6 +88,7 @@ private:
 		void RotateControlPointAddZ();
 		void RotateControlPointSubZ();
 
+		void setControl();
 protected:
 	bool eventFilter(QObject *watched, QEvent *e); 
 };

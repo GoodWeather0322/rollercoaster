@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -45,6 +46,7 @@ public:
     QAction *aLine;
     QAction *aTrack;
     QAction *aRoad;
+    QAction *aControl;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QVBoxLayout *mainLayout;
@@ -72,6 +74,19 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QSlider *sSpeed;
     QSpacerItem *horizontalSpacer_3;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_5;
+    QGroupBox *groupControl;
+    QCheckBox *XZPlane;
+    QGroupBox *groupArc;
+    QCheckBox *ArcLength;
+    QGroupBox *groupTerrain;
+    QCheckBox *Terrain;
+    QGroupBox *groupBox_3;
+    QGroupBox *groupBox_4;
+    QGroupBox *groupBox_5;
+    QGroupBox *groupBox_6;
+    QSpacerItem *horizontalSpacer_6;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuCamera;
@@ -141,6 +156,8 @@ public:
         aRoad = new QAction(AppMainClass);
         aRoad->setObjectName(QStringLiteral("aRoad"));
         aRoad->setCheckable(true);
+        aControl = new QAction(AppMainClass);
+        aControl->setObjectName(QStringLiteral("aControl"));
         centralWidget = new QWidget(AppMainClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -176,8 +193,8 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(groupCamera->sizePolicy().hasHeightForWidth());
         groupCamera->setSizePolicy(sizePolicy2);
-        groupCamera->setMinimumSize(QSize(120, 150));
-        groupCamera->setMaximumSize(QSize(200, 150));
+        groupCamera->setMinimumSize(QSize(120, 100));
+        groupCamera->setMaximumSize(QSize(200, 100));
         QFont font1;
         font1.setFamily(QStringLiteral("Comic Sans MS"));
         font1.setPointSize(10);
@@ -190,7 +207,7 @@ public:
         groupCamera->setAlignment(Qt::AlignCenter);
         comboCamera = new QComboBox(groupCamera);
         comboCamera->setObjectName(QStringLiteral("comboCamera"));
-        comboCamera->setGeometry(QRect(10, 40, 96, 96));
+        comboCamera->setGeometry(QRect(10, 40, 96, 50));
         QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Minimum);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
@@ -232,15 +249,15 @@ public:
         groupCurve->setObjectName(QStringLiteral("groupCurve"));
         sizePolicy2.setHeightForWidth(groupCurve->sizePolicy().hasHeightForWidth());
         groupCurve->setSizePolicy(sizePolicy2);
-        groupCurve->setMinimumSize(QSize(120, 150));
-        groupCurve->setMaximumSize(QSize(200, 150));
+        groupCurve->setMinimumSize(QSize(120, 100));
+        groupCurve->setMaximumSize(QSize(200, 100));
         groupCurve->setFont(font1);
         groupCurve->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         groupCurve->setAlignment(Qt::AlignCenter);
         comboCurve = new QComboBox(groupCurve);
         comboCurve->setObjectName(QStringLiteral("comboCurve"));
-        comboCurve->setGeometry(QRect(10, 40, 96, 96));
+        comboCurve->setGeometry(QRect(10, 40, 96, 50));
         sizePolicy3.setHeightForWidth(comboCurve->sizePolicy().hasHeightForWidth());
         comboCurve->setSizePolicy(sizePolicy3);
         comboCurve->setFont(font2);
@@ -274,15 +291,15 @@ public:
         groupTrack->setObjectName(QStringLiteral("groupTrack"));
         sizePolicy2.setHeightForWidth(groupTrack->sizePolicy().hasHeightForWidth());
         groupTrack->setSizePolicy(sizePolicy2);
-        groupTrack->setMinimumSize(QSize(120, 120));
-        groupTrack->setMaximumSize(QSize(200, 150));
+        groupTrack->setMinimumSize(QSize(120, 100));
+        groupTrack->setMaximumSize(QSize(200, 100));
         groupTrack->setFont(font1);
         groupTrack->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         groupTrack->setAlignment(Qt::AlignCenter);
         comboTrack = new QComboBox(groupTrack);
         comboTrack->setObjectName(QStringLiteral("comboTrack"));
-        comboTrack->setGeometry(QRect(10, 40, 96, 96));
+        comboTrack->setGeometry(QRect(10, 40, 96, 50));
         sizePolicy3.setHeightForWidth(comboTrack->sizePolicy().hasHeightForWidth());
         comboTrack->setSizePolicy(sizePolicy3);
         comboTrack->setFont(font2);
@@ -317,15 +334,15 @@ public:
         groupPlay->setObjectName(QStringLiteral("groupPlay"));
         sizePolicy2.setHeightForWidth(groupPlay->sizePolicy().hasHeightForWidth());
         groupPlay->setSizePolicy(sizePolicy2);
-        groupPlay->setMinimumSize(QSize(120, 150));
-        groupPlay->setMaximumSize(QSize(200, 150));
+        groupPlay->setMinimumSize(QSize(120, 100));
+        groupPlay->setMaximumSize(QSize(200, 100));
         groupPlay->setFont(font1);
         groupPlay->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         groupPlay->setAlignment(Qt::AlignCenter);
         bPlay = new QPushButton(groupPlay);
         bPlay->setObjectName(QStringLiteral("bPlay"));
-        bPlay->setGeometry(QRect(10, 40, 96, 96));
+        bPlay->setGeometry(QRect(10, 40, 100, 50));
         sizePolicy2.setHeightForWidth(bPlay->sizePolicy().hasHeightForWidth());
         bPlay->setSizePolicy(sizePolicy2);
         bPlay->setFont(font2);
@@ -345,8 +362,8 @@ public:
         groupCP->setObjectName(QStringLiteral("groupCP"));
         sizePolicy2.setHeightForWidth(groupCP->sizePolicy().hasHeightForWidth());
         groupCP->setSizePolicy(sizePolicy2);
-        groupCP->setMinimumSize(QSize(120, 150));
-        groupCP->setMaximumSize(QSize(200, 150));
+        groupCP->setMinimumSize(QSize(120, 100));
+        groupCP->setMaximumSize(QSize(200, 100));
         groupCP->setFont(font1);
         groupCP->setMouseTracking(false);
         groupCP->setAutoFillBackground(false);
@@ -357,7 +374,7 @@ public:
         groupCP->setCheckable(false);
         bAdd = new QPushButton(groupCP);
         bAdd->setObjectName(QStringLiteral("bAdd"));
-        bAdd->setGeometry(QRect(10, 40, 100, 44));
+        bAdd->setGeometry(QRect(10, 40, 100, 22));
         sizePolicy2.setHeightForWidth(bAdd->sizePolicy().hasHeightForWidth());
         bAdd->setSizePolicy(sizePolicy2);
         bAdd->setFont(font2);
@@ -378,7 +395,7 @@ public:
         bAdd->setIconSize(QSize(14, 14));
         bDelete = new QPushButton(groupCP);
         bDelete->setObjectName(QStringLiteral("bDelete"));
-        bDelete->setGeometry(QRect(10, 90, 100, 44));
+        bDelete->setGeometry(QRect(10, 70, 100, 22));
         sizePolicy2.setHeightForWidth(bDelete->sizePolicy().hasHeightForWidth());
         bDelete->setSizePolicy(sizePolicy2);
         bDelete->setFont(font2);
@@ -405,8 +422,8 @@ public:
         groupBox->setObjectName(QStringLiteral("groupBox"));
         sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
         groupBox->setSizePolicy(sizePolicy2);
-        groupBox->setMinimumSize(QSize(120, 150));
-        groupBox->setMaximumSize(QSize(200, 150));
+        groupBox->setMinimumSize(QSize(120, 100));
+        groupBox->setMaximumSize(QSize(200, 100));
         QPalette palette;
         QBrush brush(QColor(249, 249, 249, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -428,7 +445,7 @@ public:
         groupBox->setCheckable(false);
         rcpxadd = new QPushButton(groupBox);
         rcpxadd->setObjectName(QStringLiteral("rcpxadd"));
-        rcpxadd->setGeometry(QRect(10, 40, 100, 44));
+        rcpxadd->setGeometry(QRect(10, 40, 100, 22));
         sizePolicy2.setHeightForWidth(rcpxadd->sizePolicy().hasHeightForWidth());
         rcpxadd->setSizePolicy(sizePolicy2);
         rcpxadd->setStyleSheet(QLatin1String("QPushButton {\n"
@@ -446,7 +463,7 @@ public:
         rcpxadd->setIconSize(QSize(14, 14));
         rcpxsub = new QPushButton(groupBox);
         rcpxsub->setObjectName(QStringLiteral("rcpxsub"));
-        rcpxsub->setGeometry(QRect(10, 90, 100, 44));
+        rcpxsub->setGeometry(QRect(10, 70, 100, 22));
         rcpxsub->setStyleSheet(QLatin1String("QPushButton {\n"
 "	background-color: rgb(80, 80, 80);\n"
 "	color: rgb(240, 240, 240);\n"
@@ -459,19 +476,21 @@ public:
 "     padding-left: 5px;\n"
 "}"));
         rcpxsub->setIcon(icon4);
+        rcpxadd->raise();
+        rcpxsub->raise();
 
         horizontalLayout->addWidget(groupBox);
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(120, 150));
-        groupBox_2->setMaximumSize(QSize(200, 150));
+        groupBox_2->setMinimumSize(QSize(120, 100));
+        groupBox_2->setMaximumSize(QSize(200, 100));
         groupBox_2->setFont(font1);
         groupBox_2->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         rcpzadd = new QPushButton(groupBox_2);
         rcpzadd->setObjectName(QStringLiteral("rcpzadd"));
-        rcpzadd->setGeometry(QRect(10, 40, 100, 44));
+        rcpzadd->setGeometry(QRect(10, 40, 100, 22));
         sizePolicy2.setHeightForWidth(rcpzadd->sizePolicy().hasHeightForWidth());
         rcpzadd->setSizePolicy(sizePolicy2);
         rcpzadd->setStyleSheet(QLatin1String("QPushButton {\n"
@@ -488,7 +507,7 @@ public:
         rcpzadd->setIcon(icon3);
         rcpzsub = new QPushButton(groupBox_2);
         rcpzsub->setObjectName(QStringLiteral("rcpzsub"));
-        rcpzsub->setGeometry(QRect(10, 90, 100, 44));
+        rcpzsub->setGeometry(QRect(10, 70, 100, 22));
         rcpzsub->setStyleSheet(QLatin1String("QPushButton {\n"
 "	background-color: rgb(80, 80, 80);\n"
 "	color: rgb(240, 240, 240);\n"
@@ -543,6 +562,160 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_2);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_5);
+
+        groupControl = new QGroupBox(centralWidget);
+        groupControl->setObjectName(QStringLiteral("groupControl"));
+        sizePolicy2.setHeightForWidth(groupControl->sizePolicy().hasHeightForWidth());
+        groupControl->setSizePolicy(sizePolicy2);
+        groupControl->setMinimumSize(QSize(120, 100));
+        groupControl->setMaximumSize(QSize(200, 100));
+        groupControl->setFont(font1);
+        groupControl->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupControl->setAlignment(Qt::AlignCenter);
+        XZPlane = new QCheckBox(groupControl);
+        XZPlane->setObjectName(QStringLiteral("XZPlane"));
+        XZPlane->setGeometry(QRect(10, 40, 100, 44));
+        sizePolicy2.setHeightForWidth(XZPlane->sizePolicy().hasHeightForWidth());
+        XZPlane->setSizePolicy(sizePolicy2);
+        XZPlane->setFont(font1);
+        XZPlane->setStyleSheet(QLatin1String(" QCheckBox {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+
+        horizontalLayout_3->addWidget(groupControl);
+
+        groupArc = new QGroupBox(centralWidget);
+        groupArc->setObjectName(QStringLiteral("groupArc"));
+        sizePolicy2.setHeightForWidth(groupArc->sizePolicy().hasHeightForWidth());
+        groupArc->setSizePolicy(sizePolicy2);
+        groupArc->setMinimumSize(QSize(120, 100));
+        groupArc->setMaximumSize(QSize(200, 100));
+        groupArc->setFont(font1);
+        groupArc->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupArc->setAlignment(Qt::AlignCenter);
+        ArcLength = new QCheckBox(groupArc);
+        ArcLength->setObjectName(QStringLiteral("ArcLength"));
+        ArcLength->setGeometry(QRect(10, 40, 100, 44));
+        sizePolicy2.setHeightForWidth(ArcLength->sizePolicy().hasHeightForWidth());
+        ArcLength->setSizePolicy(sizePolicy2);
+        ArcLength->setFont(font1);
+        ArcLength->setStyleSheet(QLatin1String(" QCheckBox {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+
+        horizontalLayout_3->addWidget(groupArc);
+
+        groupTerrain = new QGroupBox(centralWidget);
+        groupTerrain->setObjectName(QStringLiteral("groupTerrain"));
+        sizePolicy2.setHeightForWidth(groupTerrain->sizePolicy().hasHeightForWidth());
+        groupTerrain->setSizePolicy(sizePolicy2);
+        groupTerrain->setMinimumSize(QSize(120, 100));
+        groupTerrain->setMaximumSize(QSize(200, 100));
+        groupTerrain->setFont(font1);
+        groupTerrain->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupTerrain->setAlignment(Qt::AlignCenter);
+        Terrain = new QCheckBox(groupTerrain);
+        Terrain->setObjectName(QStringLiteral("Terrain"));
+        Terrain->setGeometry(QRect(10, 40, 100, 44));
+        sizePolicy2.setHeightForWidth(Terrain->sizePolicy().hasHeightForWidth());
+        Terrain->setSizePolicy(sizePolicy2);
+        Terrain->setFont(font1);
+        Terrain->setStyleSheet(QLatin1String(" QCheckBox {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+        Terrain->raise();
+        groupArc->raise();
+
+        horizontalLayout_3->addWidget(groupTerrain);
+
+        groupBox_3 = new QGroupBox(centralWidget);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        sizePolicy2.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy2);
+        groupBox_3->setMinimumSize(QSize(120, 100));
+        groupBox_3->setMaximumSize(QSize(200, 100));
+        groupBox_3->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupBox_3->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(groupBox_3);
+
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+        sizePolicy2.setHeightForWidth(groupBox_4->sizePolicy().hasHeightForWidth());
+        groupBox_4->setSizePolicy(sizePolicy2);
+        groupBox_4->setMinimumSize(QSize(120, 100));
+        groupBox_4->setMaximumSize(QSize(200, 100));
+        groupBox_4->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupBox_4->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(groupBox_4);
+
+        groupBox_5 = new QGroupBox(centralWidget);
+        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
+        sizePolicy2.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
+        groupBox_5->setSizePolicy(sizePolicy2);
+        groupBox_5->setMinimumSize(QSize(120, 100));
+        groupBox_5->setMaximumSize(QSize(200, 100));
+        groupBox_5->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupBox_5->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(groupBox_5);
+
+        groupBox_6 = new QGroupBox(centralWidget);
+        groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
+        sizePolicy2.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
+        groupBox_6->setSizePolicy(sizePolicy2);
+        groupBox_6->setMinimumSize(QSize(120, 100));
+        groupBox_6->setMaximumSize(QSize(200, 100));
+        groupBox_6->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupBox_6->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_3->addWidget(groupBox_6);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_6);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
 
         AppMainClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AppMainClass);
@@ -607,6 +780,7 @@ public:
         aLine->setText(QApplication::translate("AppMainClass", "Line", Q_NULLPTR));
         aTrack->setText(QApplication::translate("AppMainClass", "Track", Q_NULLPTR));
         aRoad->setText(QApplication::translate("AppMainClass", "Road", Q_NULLPTR));
+        aControl->setText(QApplication::translate("AppMainClass", "PlaneControl", Q_NULLPTR));
         groupCamera->setTitle(QApplication::translate("AppMainClass", "Camera", Q_NULLPTR));
         comboCamera->clear();
         comboCamera->insertItems(0, QStringList()
@@ -639,6 +813,16 @@ public:
         groupBox_2->setTitle(QApplication::translate("AppMainClass", "Rotate CP Z", Q_NULLPTR));
         rcpzadd->setText(QString());
         rcpzsub->setText(QString());
+        groupControl->setTitle(QApplication::translate("AppMainClass", "Control", Q_NULLPTR));
+        XZPlane->setText(QApplication::translate("AppMainClass", "XZ Plane", Q_NULLPTR));
+        groupArc->setTitle(QApplication::translate("AppMainClass", "Arc Length", Q_NULLPTR));
+        ArcLength->setText(QApplication::translate("AppMainClass", "Arc Length", Q_NULLPTR));
+        groupTerrain->setTitle(QApplication::translate("AppMainClass", "Terrain", Q_NULLPTR));
+        Terrain->setText(QApplication::translate("AppMainClass", "Terrain", Q_NULLPTR));
+        groupBox_3->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
+        groupBox_4->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
+        groupBox_5->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
+        groupBox_6->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("AppMainClass", "File", Q_NULLPTR));
         menuCamera->setTitle(QApplication::translate("AppMainClass", "Camera", Q_NULLPTR));
         menuCurve->setTitle(QApplication::translate("AppMainClass", "Curve", Q_NULLPTR));

@@ -49,6 +49,7 @@ public:
 	void doPick(int mx, int my);
 
 	void drawTrain(float);
+	void drawGround();
 
 public:
 	ArcBallCam		arcball;			// keep an ArcBall for the UI
@@ -61,6 +62,7 @@ public:
 	int camera;
 	int curve;
 	int track;
+	float energy = 0;
 	bool isrun;
 	float time=0;
 

@@ -152,6 +152,11 @@ void TrainView::paintGL()
 	setupObjects();
 	interpos.clear();
 	interorient.clear();
+	lowestpoint = 0;
+	for (int i = 0; i < this->m_pTrack->points.size(); i++) {
+		if (this->m_pTrack->points[i].pos.y < lowestpoint)
+			lowestpoint = this->m_pTrack->points[i].pos.y;
+	}
 	drawStuff();
 	drawTrain(1);
 	// this time drawing is for shadows (except for top view)
@@ -161,6 +166,7 @@ void TrainView::paintGL()
 		unsetupShadows();
 	}
 	if (isrun) {
+		time += kinetic * 0.004f;
 		float currentTime = time * speed *0.75f;
 		int position = currentTime;
 		Pnt3f nowPos = interpos[position%interpos.size()];
@@ -665,7 +671,7 @@ void TrainView::drawStuff(bool doingShadows)
 void TrainView::drawTrain(float) {
 
 	// orient
-	time += kinetic * 0.0025f;
+	
 	float currentTime = time * speed *0.75f;
 	int position = currentTime ;
 	//kinetic = 0;
@@ -815,12 +821,12 @@ void TrainView::drawTrain(float) {
 		glPopMatrix();
 */
 		if (nextPos.y - nowPos.y > 0 ) {
-			energy += (nextPos.y - nowPos.y)*9.8 / 3; //Potential Energy
-			kinetic -= (nextPos.y - nowPos.y)*9.8 / 3;
+			energy = (nowPos.y - lowestpoint) *9.8; //Potential Energy
+			kinetic -= (nowPos.y - lowestpoint)*9.8;
 		}
 		else if (nextPos.y - nowPos.y < 0 && energy>0) {
-			kinetic += sqrt(energy)*0.25f;
-			energy -= (nextPos.y - nowPos.y)*9.8 / 3 + sqrt(energy)*0.5f;
+			kinetic += sqrt(energy)*0.125f;
+			energy = (nowPos.y - lowestpoint)*9.8;
 		}
 		
 

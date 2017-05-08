@@ -1,3 +1,7 @@
-﻿  TrainView.cpp
+﻿  Uic'ing AppMain.ui...
+C:\Users\tom\Desktop\Graphics\rollercoaster\Roller Coaster\AppMain.ui : warning : Z-order assignment: 'groupBox_2' is not a valid widget.
+  AppMain.cpp
+  main.cpp
+  Generating Code...
   Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.exe
   Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.pdb (Full PDB)

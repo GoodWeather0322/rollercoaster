@@ -82,7 +82,8 @@ public:
     QCheckBox *ArcLength;
     QGroupBox *groupTerrain;
     QCheckBox *Terrain;
-    QGroupBox *groupBox_3;
+    QGroupBox *groupMusic;
+    QCheckBox *Music;
     QGroupBox *groupBox_4;
     QGroupBox *groupBox_5;
     QGroupBox *groupBox_6;
@@ -627,6 +628,7 @@ public:
 "     padding-top: 10px;\n"
 "     padding-left: 5px;\n"
 "}"));
+        ArcLength->setChecked(true);
 
         horizontalLayout_3->addWidget(groupArc);
 
@@ -657,22 +659,42 @@ public:
 "     padding-top: 10px;\n"
 "     padding-left: 5px;\n"
 "}"));
+        Terrain->setChecked(true);
         Terrain->raise();
         groupArc->raise();
 
         horizontalLayout_3->addWidget(groupTerrain);
 
-        groupBox_3 = new QGroupBox(centralWidget);
-        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        sizePolicy2.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
-        groupBox_3->setSizePolicy(sizePolicy2);
-        groupBox_3->setMinimumSize(QSize(120, 100));
-        groupBox_3->setMaximumSize(QSize(200, 100));
-        groupBox_3->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+        groupMusic = new QGroupBox(centralWidget);
+        groupMusic->setObjectName(QStringLiteral("groupMusic"));
+        sizePolicy2.setHeightForWidth(groupMusic->sizePolicy().hasHeightForWidth());
+        groupMusic->setSizePolicy(sizePolicy2);
+        groupMusic->setMinimumSize(QSize(120, 100));
+        groupMusic->setMaximumSize(QSize(200, 100));
+        groupMusic->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
-        groupBox_3->setAlignment(Qt::AlignCenter);
+        groupMusic->setAlignment(Qt::AlignCenter);
+        Music = new QCheckBox(groupMusic);
+        Music->setObjectName(QStringLiteral("Music"));
+        Music->setGeometry(QRect(10, 40, 100, 44));
+        sizePolicy2.setHeightForWidth(Music->sizePolicy().hasHeightForWidth());
+        Music->setSizePolicy(sizePolicy2);
+        Music->setFont(font1);
+        Music->setStyleSheet(QLatin1String(" QCheckBox {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QCheckBox:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+        Music->setChecked(true);
+        Music->setTristate(false);
 
-        horizontalLayout_3->addWidget(groupBox_3);
+        horizontalLayout_3->addWidget(groupMusic);
 
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
@@ -683,6 +705,7 @@ public:
         groupBox_4->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         groupBox_4->setAlignment(Qt::AlignCenter);
+        groupBox_4->setCheckable(false);
 
         horizontalLayout_3->addWidget(groupBox_4);
 
@@ -819,7 +842,8 @@ public:
         ArcLength->setText(QApplication::translate("AppMainClass", "Arc Length", Q_NULLPTR));
         groupTerrain->setTitle(QApplication::translate("AppMainClass", "Terrain", Q_NULLPTR));
         Terrain->setText(QApplication::translate("AppMainClass", "Terrain", Q_NULLPTR));
-        groupBox_3->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
+        groupMusic->setTitle(QApplication::translate("AppMainClass", "Music", Q_NULLPTR));
+        Music->setText(QApplication::translate("AppMainClass", "Music", Q_NULLPTR));
         groupBox_4->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
         groupBox_5->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));
         groupBox_6->setTitle(QApplication::translate("AppMainClass", "GroupBox", Q_NULLPTR));

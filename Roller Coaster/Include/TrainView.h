@@ -64,12 +64,14 @@ public:
 	int track;
 	float energy = 0;
 	float kinetic = 0;
+	float lowestpoint;
 	bool isrun;
 	float time=0;
 
 	int speed = 50;
 	vector<Pnt3f> interpos;
 	vector<Pnt3f> interorient;
+	
 
 };  
 #endif // TRAINVIEW_H  

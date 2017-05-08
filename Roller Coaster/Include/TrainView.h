@@ -63,6 +63,7 @@ public:
 	int curve;
 	int track;
 	float energy = 0;
+	float kinetic = 0;
 	bool isrun;
 	float time=0;
 

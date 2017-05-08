@@ -665,8 +665,10 @@ void TrainView::drawStuff(bool doingShadows)
 void TrainView::drawTrain(float) {
 
 	// orient
+	time += kinetic * 0.0025f;
 	float currentTime = time * speed *0.75f;
 	int position = currentTime ;
+	//kinetic = 0;
 	//printf("%d\n", position);
 	
 	//Pnt3f nowPos = interpos[(position + 1) % interpos.size()];
@@ -693,7 +695,8 @@ void TrainView::drawTrain(float) {
 
 		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
 		Pnt3f nextOrt = interorient[(position + 1) % interpos.size()];
-
+		
+			
 		nowOrt.normalize();
 		float trainLength = 5.0f;
 		Pnt3f trainDir = nextPos + -1 * nowPos;
@@ -811,12 +814,25 @@ void TrainView::drawTrain(float) {
 		arrow->render();
 		glPopMatrix();
 */
+		if (nextPos.y - nowPos.y > 0 ) {
+			energy += (nextPos.y - nowPos.y)*9.8 / 3; //Potential Energy
+			kinetic -= (nextPos.y - nowPos.y)*9.8 / 3;
+		}
+		else if (nextPos.y - nowPos.y < 0 && energy>0) {
+			kinetic += sqrt(energy)*0.25f;
+			energy -= (nextPos.y - nowPos.y)*9.8 / 3 + sqrt(energy)*0.5f;
+		}
+		
 
 		position -= 15;
 		if (position < 0) 
 			position += interpos.size();
 		position %= interpos.size();
 	}
+
+	energy = energy < 0 ? 0 : energy;
+	kinetic = kinetic < 7.0f ? 0 : kinetic - 7.0f;	//friction
+	printf("%.2f %.2f\n", energy, kinetic);
 	update();
 }
 

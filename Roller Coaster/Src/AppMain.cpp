@@ -55,7 +55,11 @@ AppMain::AppMain(QWidget *parent)
 	connect( ui.rcpzsub		,SIGNAL(clicked()),this,SLOT(RotateControlPointSubZ())				);
 
 	connect( ui.XZPlane	    ,SIGNAL(stateChanged(int)), this, SLOT(setControl())			);
-	 
+	connect( ui.Terrain		,SIGNAL(stateChanged(int)), this, SLOT(setGround()));
+	connect(ui.ArcLength	, SIGNAL(stateChanged(int)), this, SLOT(setArc()));
+
+	connect(ui.caradd		, SIGNAL(clicked()), this, SLOT(AddCar()));
+	connect(ui.carsub		, SIGNAL(clicked()), this, SLOT(DeleteCar()));
 }
 
 AppMain::~AppMain()
@@ -501,3 +505,18 @@ void AppMain::setControl()
 {
 	yplane = yplane ? false : true;
 }
+
+void AppMain::setGround() {
+	this->trainview->terrain = this->trainview->terrain ? false : true;
+}
+void AppMain::setArc() {
+	this->trainview->doarc = this->trainview->doarc ? false : true;
+}
+
+void AppMain::AddCar() {
+	this->trainview->cars = this->trainview->cars < 7 ? this->trainview->cars + 1 : this->trainview->cars;
+}
+void AppMain::DeleteCar() {
+	this->trainview->cars = this->trainview->cars == 1 ? 1 : this->trainview->cars - 1;
+}
+

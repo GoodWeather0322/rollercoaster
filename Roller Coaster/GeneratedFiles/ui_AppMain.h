@@ -69,6 +69,9 @@ public:
     QGroupBox *groupBox_2;
     QPushButton *rcpzadd;
     QPushButton *rcpzsub;
+    QGroupBox *groupBox_3;
+    QPushButton *caradd;
+    QPushButton *carsub;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_4;
@@ -477,8 +480,6 @@ public:
 "     padding-left: 5px;\n"
 "}"));
         rcpxsub->setIcon(icon4);
-        rcpxadd->raise();
-        rcpxsub->raise();
 
         horizontalLayout->addWidget(groupBox);
 
@@ -523,6 +524,54 @@ public:
         rcpzsub->setIcon(icon4);
 
         horizontalLayout->addWidget(groupBox_2);
+
+        groupBox_3 = new QGroupBox(centralWidget);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        groupBox_3->setMinimumSize(QSize(120, 100));
+        groupBox_3->setMaximumSize(QSize(200, 100));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Comic Sans MS"));
+        font3.setPointSize(12);
+        font3.setBold(true);
+        font3.setWeight(75);
+        groupBox_3->setFont(font3);
+        groupBox_3->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
+"border-radius: 5px;"));
+        groupBox_3->setAlignment(Qt::AlignCenter);
+        caradd = new QPushButton(groupBox_3);
+        caradd->setObjectName(QStringLiteral("caradd"));
+        caradd->setGeometry(QRect(10, 40, 100, 22));
+        sizePolicy2.setHeightForWidth(caradd->sizePolicy().hasHeightForWidth());
+        caradd->setSizePolicy(sizePolicy2);
+        caradd->setStyleSheet(QLatin1String("QPushButton {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+        caradd->setIcon(icon3);
+        carsub = new QPushButton(groupBox_3);
+        carsub->setObjectName(QStringLiteral("carsub"));
+        carsub->setGeometry(QRect(10, 70, 100, 22));
+        carsub->setStyleSheet(QLatin1String("QPushButton {\n"
+"	background-color: rgb(80, 80, 80);\n"
+"	color: rgb(240, 240, 240);\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));\n"
+"     padding-top: 10px;\n"
+"     padding-left: 5px;\n"
+"}"));
+        carsub->setIcon(icon4);
+
+        horizontalLayout->addWidget(groupBox_3);
 
         horizontalSpacer_2 = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -660,8 +709,6 @@ public:
 "     padding-left: 5px;\n"
 "}"));
         Terrain->setChecked(true);
-        Terrain->raise();
-        groupArc->raise();
 
         horizontalLayout_3->addWidget(groupTerrain);
 
@@ -671,6 +718,7 @@ public:
         groupMusic->setSizePolicy(sizePolicy2);
         groupMusic->setMinimumSize(QSize(120, 100));
         groupMusic->setMaximumSize(QSize(200, 100));
+        groupMusic->setFont(font3);
         groupMusic->setStyleSheet(QLatin1String("background-color: rgb(249, 249, 249);\n"
 "border-radius: 5px;"));
         groupMusic->setAlignment(Qt::AlignCenter);
@@ -836,6 +884,9 @@ public:
         groupBox_2->setTitle(QApplication::translate("AppMainClass", "Rotate CP Z", Q_NULLPTR));
         rcpzadd->setText(QString());
         rcpzsub->setText(QString());
+        groupBox_3->setTitle(QApplication::translate("AppMainClass", "Cars", Q_NULLPTR));
+        caradd->setText(QString());
+        carsub->setText(QString());
         groupControl->setTitle(QApplication::translate("AppMainClass", "Control", Q_NULLPTR));
         XZPlane->setText(QApplication::translate("AppMainClass", "XZ Plane", Q_NULLPTR));
         groupArc->setTitle(QApplication::translate("AppMainClass", "Arc Length", Q_NULLPTR));

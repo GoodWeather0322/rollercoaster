@@ -224,6 +224,7 @@
     <ClInclude Include="Load3DSModel\vector.h" />
     <ClInclude Include="LoadObjModel\Model.h" />
     <ClInclude Include="LoadObjModel\point3d.h" />
+    <ClInclude Include="LoadObjModel\tiny_obj_loader.h" />
     <CustomBuild Include="Include\TrainView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

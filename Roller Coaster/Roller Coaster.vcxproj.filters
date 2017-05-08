@@ -141,5 +141,8 @@
     <ClInclude Include="Load3DSModel\vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LoadObjModel\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

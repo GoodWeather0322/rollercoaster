@@ -62,10 +62,14 @@ public:
 	int camera;
 	int curve;
 	int track;
+	int cars = 1;
 	float energy = 0;
 	float kinetic = 0;
 	float lowestpoint;
 	bool isrun;
+	bool terrain = true;
+	bool doarc = true;
+	bool music = true;
 	float time=0;
 
 	int speed = 50;

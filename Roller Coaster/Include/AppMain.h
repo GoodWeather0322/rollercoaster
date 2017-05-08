@@ -89,6 +89,14 @@ private:
 		void RotateControlPointSubZ();
 
 		void setControl();
+		void setGround();
+		void setArc();
+
+		void AddCar();
+		void DeleteCar();
+
+		
+		
 protected:
 	bool eventFilter(QObject *watched, QEvent *e); 
 };

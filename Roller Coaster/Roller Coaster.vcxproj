@@ -184,6 +184,7 @@
     <ClCompile Include="Load3DSModel\CBMPLoader.cpp" />
     <ClCompile Include="Load3DSModel\vector.cpp" />
     <ClCompile Include="LoadObjModel\Model.cpp" />
+    <ClCompile Include="LoadObjModel\tiny_obj_loader.cc" />
     <ClCompile Include="Src\AppMain.cpp" />
     <ClCompile Include="Src\ControlPoint.cpp" />
     <ClCompile Include="Src\main.cpp" />
@@ -217,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_AppMain.h" />
+    <ClInclude Include="HeightMap.h" />
     <ClInclude Include="Include\ControlPoint.H" />
     <ClInclude Include="Include\Track.H" />
     <ClInclude Include="Load3DSModel\3DSLoader.h" />

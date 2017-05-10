@@ -10,6 +10,8 @@
 #include "Utilities/3DUtils.H"
 #include "Track.H"
 #include <LoadObjModel\Model.h>
+#include <LoadObjModel\tiny_obj_loader.h>
+#include <HeightMap.h>
 
 class AppMain;
 class CTrack;
@@ -50,6 +52,8 @@ public:
 
 	void drawTrain(float);
 	void drawGround();
+
+	void loadModel(std::string path);
 
 public:
 	ArcBallCam		arcball;			// keep an ArcBall for the UI

@@ -92,6 +92,7 @@
     <ClCompile Include="Load3DSModel\vector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadObjModel\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AppMain.ui">
@@ -142,6 +143,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LoadObjModel\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeightMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

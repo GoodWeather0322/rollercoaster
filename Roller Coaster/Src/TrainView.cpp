@@ -1,43 +1,6 @@
 #include "TrainView.h"  
 
 
-class Terrain {
-public:
-	vector<vector<float>> ground =
-	{
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 4.0f,2.0f,3.0f, 2.0f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 2.0f,3.0f,4.0f, 3.0f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,2.0f, 3.0f,4.0f,5.0f, 4.0f,2.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 2.0f,5.0f,11.5f, 3.0f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,8.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,2.0f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,3.0f, 1.5f,1.5f,4.0f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,3.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 2.0f,1.5f,2.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 5.0f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 13.0f,10.0f,18.0f, 16.0f,14.0f,12.0f, 10.0f,8.0f,4.0f, 2.0f,1.5f,4.0f,5.0f,7.0f,2.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 12.0f,8.0f,12.0f,8.0f,12.0f,10.0f, 8.0f,6.0f,4.0f, 2.0f,3.0f,5.0f,6.0f,8.0f,7.0f, 5.0f,3.0f,3.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 10.0f,6.0f,10.0f, 6.0f,10.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,5.0f,6.0f, 9.0f,10.0f,9.0f, 7.0f,6.0f,3.0f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 8.0f,14.0f,4.0f, 2.0f,8.0f,1.5f, 1.5f,1.5f,2.0f, 3.0f,4.0f,7.0f, 8.0f,8.0f,7.0f, 6.0f,5.0f,4.0f, 3.0f,2.0f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 6.0f,13.0f,2.0f,1.5f,6.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 4.0f,12.0f,1.5f, 1.5f,4.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 12.0f,10.0f,1.5f, 1.5f,2.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 10.0f,8.0f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f,1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-		{ 8.0f,6.0f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, 1.5f,1.5f,1.5f, },
-
-	};
-};
 
 TrainView::TrainView(QWidget *parent) :
 	QGLWidget(parent)
@@ -167,8 +130,8 @@ void TrainView::paintGL()
 		unsetupShadows();
 	}
 	if (isrun) {
-		time += kinetic * 0.002f;
-		float currentTime = time * speed *0.75f;
+		time += kinetic * 0.004f;
+		float currentTime = time * speed *0.6f;
 		int position = currentTime;
 		Pnt3f nowPos = interpos[position%interpos.size()];
 		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
@@ -233,7 +196,7 @@ setProjection()
 	// put code for train view projection here!	
 	//####################################################################
 	else if (this->camera == 2) {
-		float currentTime = time * speed *0.75f;
+		float currentTime = time * speed *0.6f;
 		int position = currentTime;
 		float trainLength = 5.0f;
 		Pnt3f nowPos = interpos[position%interpos.size()];
@@ -317,28 +280,33 @@ void TrainView::drawStuff(bool doingShadows)
 	// call your own track drawing code
 	//####################################################################
 
-	float arclength = 2;
+	float arclength = 2.5f;
 	Pnt3f lastpoints[2]; //first is the point second is the crosst
 	Pnt3f firstpoint[2]; //first point computed second is crosst
 	boolean first = false;
 	Pnt3f lastcross_t;
+	int distance = 0;
+	Pnt3f orient_t, cross_t;
 	for (size_t i = 0; i < this->m_pTrack->points.size(); ++i) {
 		Pnt3f qt0, qt1, qt;
-
-		Pnt3f orient_t, cross_t;
 		//first two
-
 		Pnt3f cp_pos_p1 = m_pTrack->points[i].pos;
 		Pnt3f cp_pos_p2 = m_pTrack->points[(i + 1) % m_pTrack->points.size()].pos;
 		Pnt3f pointlength = (cp_pos_p1 + (-1 * cp_pos_p2));
+		int inter = 10;
 		float length = sqrt((pointlength.x * pointlength.x) + (pointlength.y * pointlength.y) + (pointlength.z * pointlength.z));
 		if (doarc)
 			DIVIDE_LINE = length * 70;
-		else
+		else 
 			DIVIDE_LINE = length;
+		
+		
 		float percent = 1.0f / DIVIDE_LINE;
 		float t = 0;
-		int inter = 10;
+		
+		int structure = 100;
+		int upsidedownStruct=structure;
+		
 		int track_num = DIVIDE_LINE / inter;
 
 		//for curved tracks
@@ -374,7 +342,8 @@ void TrainView::drawStuff(bool doingShadows)
 		QMatrix4x4 QMcardinalpos = qposMatrix*cardinalM;
 		QMatrix4x4 QMbsplineorient = qorientMatrix*bsplineM;
 		QMatrix4x4 QMbsplinepos = qposMatrix*bsplineM;
-
+		GLUquadricObj *quadObj;
+		
 
 		switch (curve) {
 		case 0:
@@ -399,7 +368,7 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 			break;
 		}
-		for (size_t j = 0; j < DIVIDE_LINE; j++) {
+		for (int j = 0; j < DIVIDE_LINE; j++) {
 
 			qt0 = qt;
 			
@@ -408,7 +377,7 @@ void TrainView::drawStuff(bool doingShadows)
 				glColor3ub(32, 32, 64);
 			}
 
-			if (j == 0 && i > 0) {
+			if (j == 0 && i != 0) {
 				glEnable(GL_LINE_SMOOTH);
 				switch (track) {
 				case 0:
@@ -468,13 +437,10 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 			interpos.push_back(qt);
 			
-			int distance = 0;
+			
 			
 			while (true) {
 				t += percent;
-				if (t >= 1) {
-					t = 1;
-				}
 				tmatrix[0] = pow(t, 3);
 				tmatrix[1] = pow(t, 2);
 				tmatrix[2] = t;
@@ -505,13 +471,14 @@ void TrainView::drawStuff(bool doingShadows)
 				Pnt3f trainDir = qt + -1 * qt0;
 				float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
 				distance += distanceL;
-				if (distance >= arclength || t==1)
+				if (distance >= arclength || j >= DIVIDE_LINE - 1)
 					break;
 				else {
 					j++;
 				}
 			}
-			distance = 0;
+			if (distance >= arclength)
+				distance = 0;
 				
 			qt1 = qt;
 			orient_t.normalize();
@@ -520,10 +487,12 @@ void TrainView::drawStuff(bool doingShadows)
 			orient_t = -1 * ((qt1 + -1 * qt0) * cross_t);
 			orient_t.normalize();
 			interorient.push_back(orient_t);
+			cross_t = (qt1 + -1 * qt0) * orient_t;
+			cross_t.normalize();
 			cross_t = cross_t * 2.5f;
 			if (i == 0 && !first)
 				lastcross_t = cross_t;
-			if (i == 0 && !first && j!=0) {
+			if (i == 0 && !first) {
 				firstpoint[0] = qt0;
 				firstpoint[1] = cross_t;
 				first = true;
@@ -546,8 +515,44 @@ void TrainView::drawStuff(bool doingShadows)
 					glVertex3f(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
 					glVertex3f(qt1.x - 1.5*cross_t.x + orient_t.x*0.5, qt1.y - 1.5*cross_t.y + orient_t.y*0.5, qt1.z - 1.5*cross_t.z + orient_t.z*0.5);
 					glEnd();
+					if (interpos.size() % upsidedownStruct== 0 && orient_t.y < 0) {
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, 0, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+	
+						//glRotatef(30, 0, 0, 1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, 30, 30);
+						glPopMatrix();
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x - 1.5*cross_t.x - orient_t.x*0.5, 0, qt1.z - 1.5*cross_t.z - orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+						//glRotatef(30, 0, 0, -1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y - 1.5*cross_t.y + orient_t.z*0.5, 30, 30);
+						glPopMatrix();
+					}
 				}
+				if (interpos.size() % structure == 0 && orient_t.y>0) {
+					//glLineWidth(5);
 
+					glPushMatrix();
+					if (!doingShadows) {
+						glColor3ub(37, 77, 81);
+					}
+					glTranslatef(qt0.x, 0, qt0.z);
+					glRotatef(90, -1, 0, 0);
+					quadObj = gluNewQuadric();
+					gluCylinder(quadObj, 1.5, 0.1, qt0.y, 30, 30);
+					glPopMatrix();
+				}
+				
 				break;
 			case 1:
 				glEnable(GL_LINE_SMOOTH);
@@ -570,8 +575,44 @@ void TrainView::drawStuff(bool doingShadows)
 					}
 					glVertex3f(qt1.x + 1.5*cross_t.x, qt1.y + 1.5*cross_t.y, qt1.z + 1.5*cross_t.z);
 					glVertex3f(qt1.x - 1.5*cross_t.x, qt1.y - 1.5*cross_t.y, qt1.z - 1.5*cross_t.z);
+					glEnd();
+					if (interpos.size() % upsidedownStruct == 0 && orient_t.y < 0) {
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, 0, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+
+						//glRotatef(30, 0, 0, 1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, 30, 30);
+						glPopMatrix();
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x - 1.5*cross_t.x - orient_t.x*0.5, 0, qt1.z - 1.5*cross_t.z - orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+						//glRotatef(30, 0, 0, -1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y - 1.5*cross_t.y + orient_t.z*0.5, 30, 30);
+						glPopMatrix();
+					}
 				}
-				glEnd();
+				
+				if (interpos.size() % structure == 0 && orient_t.y>0) {
+					//glLineWidth(5);
+					glPushMatrix();
+					if (!doingShadows) {
+						glColor3ub(37, 77, 81);
+					}
+					glTranslatef(qt0.x, 0, qt0.z);
+					glRotatef(90, -1, 0, 0);
+					GLUquadricObj *quadObj = gluNewQuadric();
+					gluCylinder(quadObj, 1.5, 0.1, qt0.y, 30, 30);
+					glPopMatrix();
+				}
 				break;
 			case 2:
 				glEnable(GL_LINE_SMOOTH);
@@ -594,18 +635,56 @@ void TrainView::drawStuff(bool doingShadows)
 					glVertex3f(qt1.x + 1.5*cross_t.x, qt1.y + 1.5*cross_t.y, qt1.z + 1.5*cross_t.z);
 					glVertex3f(qt1.x - 1.5*cross_t.x, qt1.y - 1.5*cross_t.y, qt1.z - 1.5*cross_t.z);
 					glEnd();
+					if (interpos.size() % upsidedownStruct == 0 && orient_t.y < 0) {
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, 0, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+
+						//glRotatef(30, 0, 0, 1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, 30, 30);
+						glPopMatrix();
+						glPushMatrix();
+						if (!doingShadows) {
+							glColor3ub(37, 77, 81);
+						}
+						glTranslatef(qt1.x - 1.5*cross_t.x - orient_t.x*0.5, 0, qt1.z - 1.5*cross_t.z - orient_t.z*0.5);
+						glRotatef(90, -1, 0, 0);
+						//glRotatef(30, 0, 0, -1);
+						quadObj = gluNewQuadric();
+						gluCylinder(quadObj, 1.5, 0.1, qt1.y - 1.5*cross_t.y + orient_t.z*0.5, 30, 30);
+						glPopMatrix();
+					}
 				}
+				if (interpos.size() % structure == 0 && orient_t.y>0) {
+					//glLineWidth(5);
+
+					glPushMatrix();
+					if (!doingShadows) {
+						glColor3ub(37, 77, 81);
+					}
+					glTranslatef(qt0.x, 0, qt0.z);
+					glRotatef(90, -1, 0, 0);
+					GLUquadricObj *quadObj = gluNewQuadric();
+					gluCylinder(quadObj, 1.5, 0.1, qt0.y, 30, 30);
+					glPopMatrix();
+				}
+
+
 				break;
 			}
 
 
-			if (t > 0.99) {
+			if (j >= DIVIDE_LINE-1) {
 				lastpoints[0] = qt1;
 				lastpoints[1] = cross_t;
 			}
 
 			//wraparound to the first point
-			if (t==1 && i == this->m_pTrack->points.size() - 1) {
+			if (j>= DIVIDE_LINE-1 && i == this->m_pTrack->points.size() - 1) {
 				switch (track) {
 				case 0:
 					if (!doingShadows) {
@@ -673,8 +752,9 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 			lastcross_t = cross_t;
 		}
+		//first = false;
 	}
-
+	
 	update();
 }
 
@@ -682,7 +762,7 @@ void TrainView::drawTrain(float) {
 
 	// orient
 	
-	float currentTime = time * speed *0.75f;
+	float currentTime = time * speed *0.6f;
 	int position = currentTime ;
 	//kinetic = 0;
 	//printf("%d\n", position);
@@ -832,12 +912,19 @@ void TrainView::drawTrain(float) {
 */
 		if (i == 0) {
 			if (nextPos.y - nowPos.y > 0) {
-				energy = (nowPos.y - lowestpoint) *9.8; //Potential Energy
-				kinetic -= (nowPos.y - lowestpoint)*9.8;
+				float newenergy = (nowPos.y - lowestpoint)*9.8;
+				if (newenergy - energy > 0)
+					kinetic -= sqrt((newenergy - energy) * 1.5);
+				energy = newenergy; //Potential Energy
+				
 			}
 			else if (nextPos.y - nowPos.y < 0) {
-				kinetic += sqrt((nowPos.y - lowestpoint)*9.8)*0.30f;
-				energy = (nowPos.y - lowestpoint)*9.8;
+
+				float newenergy = (nowPos.y - lowestpoint)*9.8;
+				
+				if (energy - newenergy > 0)
+					kinetic += sqrt((energy - newenergy) * 1.5);
+				energy = newenergy;
 			}
 		}
 		
@@ -849,8 +936,8 @@ void TrainView::drawTrain(float) {
 	}
 
 	energy = energy < 0 ? 0 : energy;
-	kinetic = kinetic < 4.0f ? 0 : kinetic - 4.0f;	//friction
-	printf("%.2f %.2f\n", energy, kinetic);
+	kinetic = kinetic < 3.5f ? 0 : kinetic - kinetic*0.002 - 3.5f;//friction
+	printf("%d %d\n", position, interpos.size());
 	update();
 }
 
@@ -964,4 +1051,16 @@ void TrainView::drawGround() {
 	}
 	
 
+}
+
+void TrainView::loadModel(std::string path) {
+	tinyobj::attrib_t attrib;
+	vector<tinyobj::shape_t> shapes;
+	vector<tinyobj::material_t> materials;
+	std::string err;
+
+	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, "stone02.obj", NULL, true);
+
+
+	
 }

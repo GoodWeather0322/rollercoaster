@@ -1,2 +1,5 @@
-﻿  Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.exe
+﻿  TrainView.cpp
+Src\TrainView.cpp(940): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'unsigned __int64'
+  Src\TrainView.cpp(940): note: consider using '%zd' in the format string
+  Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.exe
   Roller Coaster.vcxproj -> C:\Users\tom\Desktop\Graphics\rollercoaster\x64\Debug\Roller Coaster.pdb (Full PDB)

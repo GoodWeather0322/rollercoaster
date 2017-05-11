@@ -91,6 +91,7 @@ private:
 		void setControl();
 		void setGround();
 		void setArc();
+		void setStruct();
 
 		void AddCar();
 		void DeleteCar();

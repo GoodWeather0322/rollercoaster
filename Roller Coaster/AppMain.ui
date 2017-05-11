@@ -1492,7 +1492,7 @@ QCheckBox:pressed {
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_4">
+       <widget class="QGroupBox" name="groupStructure">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1511,12 +1511,20 @@ QCheckBox:pressed {
           <height>100</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Comic Sans MS</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(249, 249, 249);
 border-radius: 5px;</string>
         </property>
         <property name="title">
-         <string>GroupBox</string>
+         <string>Structures</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1524,6 +1532,52 @@ border-radius: 5px;</string>
         <property name="checkable">
          <bool>false</bool>
         </property>
+        <widget class="QCheckBox" name="Structures">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>100</width>
+           <height>44</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Comic Sans MS</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"> QCheckBox {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QCheckBox:pressed {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
+     padding-top: 10px;
+     padding-left: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Structures</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <property name="tristate">
+          <bool>false</bool>
+         </property>
+        </widget>
        </widget>
       </item>
       <item>

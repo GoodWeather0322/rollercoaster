@@ -54,6 +54,7 @@ public:
 	void drawGround();
 
 	void loadModel(std::string path);
+	void loadTexture2D(QString str, GLuint &textureID);
 
 public:
 	ArcBallCam		arcball;			// keep an ArcBall for the UI
@@ -74,7 +75,9 @@ public:
 	bool terrain = true;
 	bool doarc = true;
 	bool music = true;
+	bool showstruct = false;
 	float time=0;
+	GLuint train_ID;
 
 	int speed = 50;
 	vector<Pnt3f> interpos;

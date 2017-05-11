@@ -56,7 +56,8 @@ AppMain::AppMain(QWidget *parent)
 
 	connect( ui.XZPlane	    ,SIGNAL(stateChanged(int)), this, SLOT(setControl())			);
 	connect( ui.Terrain		,SIGNAL(stateChanged(int)), this, SLOT(setGround()));
-	connect(ui.ArcLength	, SIGNAL(stateChanged(int)), this, SLOT(setArc()));
+	connect( ui.ArcLength	, SIGNAL(stateChanged(int)), this, SLOT(setArc()));
+	connect(ui.Structures	, SIGNAL(stateChanged(int)), this, SLOT(setStruct()));
 
 	connect(ui.caradd		, SIGNAL(clicked()), this, SLOT(AddCar()));
 	connect(ui.carsub		, SIGNAL(clicked()), this, SLOT(DeleteCar()));
@@ -518,5 +519,9 @@ void AppMain::AddCar() {
 }
 void AppMain::DeleteCar() {
 	this->trainview->cars = this->trainview->cars == 1 ? 1 : this->trainview->cars - 1;
+}
+
+void AppMain::setStruct() {
+	this->trainview->showstruct = this->trainview->showstruct ? false : true;
 }
 

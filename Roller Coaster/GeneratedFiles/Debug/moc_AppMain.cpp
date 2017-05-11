@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_AppMain_t {
-    QByteArrayData data[32];
-    char stringdata0[478];
+    QByteArrayData data[33];
+    char stringdata0[488];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -61,8 +61,9 @@ QT_MOC_LITERAL(26, 410, 22), // "RotateControlPointSubZ"
 QT_MOC_LITERAL(27, 433, 10), // "setControl"
 QT_MOC_LITERAL(28, 444, 9), // "setGround"
 QT_MOC_LITERAL(29, 454, 6), // "setArc"
-QT_MOC_LITERAL(30, 461, 6), // "AddCar"
-QT_MOC_LITERAL(31, 468, 9) // "DeleteCar"
+QT_MOC_LITERAL(30, 461, 9), // "setStruct"
+QT_MOC_LITERAL(31, 471, 6), // "AddCar"
+QT_MOC_LITERAL(32, 478, 9) // "DeleteCar"
 
     },
     "AppMain\0LoadTrackPath\0\0SaveTrackPath\0"
@@ -77,7 +78,8 @@ QT_MOC_LITERAL(31, 468, 9) // "DeleteCar"
     "DeleteControlPoint\0RotateControlPointAddX\0"
     "RotateControlPointSubX\0RotateControlPointAddZ\0"
     "RotateControlPointSubZ\0setControl\0"
-    "setGround\0setArc\0AddCar\0DeleteCar"
+    "setGround\0setArc\0setStruct\0AddCar\0"
+    "DeleteCar"
 };
 #undef QT_MOC_LITERAL
 
@@ -87,7 +89,7 @@ static const uint qt_meta_data_AppMain[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      28,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -95,34 +97,35 @@ static const uint qt_meta_data_AppMain[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  154,    2, 0x08 /* Private */,
-       3,    0,  155,    2, 0x08 /* Private */,
-       4,    0,  156,    2, 0x08 /* Private */,
-       5,    1,  157,    2, 0x08 /* Private */,
-       7,    0,  160,    2, 0x08 /* Private */,
-       8,    0,  161,    2, 0x08 /* Private */,
-       9,    0,  162,    2, 0x08 /* Private */,
-      10,    1,  163,    2, 0x08 /* Private */,
-      11,    0,  166,    2, 0x08 /* Private */,
-      12,    0,  167,    2, 0x08 /* Private */,
-      13,    0,  168,    2, 0x08 /* Private */,
-      14,    1,  169,    2, 0x08 /* Private */,
-      15,    0,  172,    2, 0x08 /* Private */,
-      16,    0,  173,    2, 0x08 /* Private */,
-      17,    0,  174,    2, 0x08 /* Private */,
-      18,    0,  175,    2, 0x08 /* Private */,
-      19,    1,  176,    2, 0x08 /* Private */,
-      21,    0,  179,    2, 0x08 /* Private */,
-      22,    0,  180,    2, 0x08 /* Private */,
-      23,    0,  181,    2, 0x08 /* Private */,
-      24,    0,  182,    2, 0x08 /* Private */,
-      25,    0,  183,    2, 0x08 /* Private */,
-      26,    0,  184,    2, 0x08 /* Private */,
-      27,    0,  185,    2, 0x08 /* Private */,
-      28,    0,  186,    2, 0x08 /* Private */,
-      29,    0,  187,    2, 0x08 /* Private */,
-      30,    0,  188,    2, 0x08 /* Private */,
-      31,    0,  189,    2, 0x08 /* Private */,
+       1,    0,  159,    2, 0x08 /* Private */,
+       3,    0,  160,    2, 0x08 /* Private */,
+       4,    0,  161,    2, 0x08 /* Private */,
+       5,    1,  162,    2, 0x08 /* Private */,
+       7,    0,  165,    2, 0x08 /* Private */,
+       8,    0,  166,    2, 0x08 /* Private */,
+       9,    0,  167,    2, 0x08 /* Private */,
+      10,    1,  168,    2, 0x08 /* Private */,
+      11,    0,  171,    2, 0x08 /* Private */,
+      12,    0,  172,    2, 0x08 /* Private */,
+      13,    0,  173,    2, 0x08 /* Private */,
+      14,    1,  174,    2, 0x08 /* Private */,
+      15,    0,  177,    2, 0x08 /* Private */,
+      16,    0,  178,    2, 0x08 /* Private */,
+      17,    0,  179,    2, 0x08 /* Private */,
+      18,    0,  180,    2, 0x08 /* Private */,
+      19,    1,  181,    2, 0x08 /* Private */,
+      21,    0,  184,    2, 0x08 /* Private */,
+      22,    0,  185,    2, 0x08 /* Private */,
+      23,    0,  186,    2, 0x08 /* Private */,
+      24,    0,  187,    2, 0x08 /* Private */,
+      25,    0,  188,    2, 0x08 /* Private */,
+      26,    0,  189,    2, 0x08 /* Private */,
+      27,    0,  190,    2, 0x08 /* Private */,
+      28,    0,  191,    2, 0x08 /* Private */,
+      29,    0,  192,    2, 0x08 /* Private */,
+      30,    0,  193,    2, 0x08 /* Private */,
+      31,    0,  194,    2, 0x08 /* Private */,
+      32,    0,  195,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -142,6 +145,7 @@ static const uint qt_meta_data_AppMain[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   20,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -189,8 +193,9 @@ void AppMain::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 23: _t->setControl(); break;
         case 24: _t->setGround(); break;
         case 25: _t->setArc(); break;
-        case 26: _t->AddCar(); break;
-        case 27: _t->DeleteCar(); break;
+        case 26: _t->setStruct(); break;
+        case 27: _t->AddCar(); break;
+        case 28: _t->DeleteCar(); break;
         default: ;
         }
     }
@@ -221,13 +226,13 @@ int AppMain::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 28)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 28;
+        _id -= 29;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 28)
+        if (_id < 29)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 28;
+        _id -= 29;
     }
     return _id;
 }

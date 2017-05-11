@@ -8,10 +8,39 @@ TrainView::TrainView(QWidget *parent) :
 
 	resetArcball();
 	arrow = new Model("train.obj", 3, Point3d(0, 0, 0));
+	/*QDir dir("Pic");
+	if (dir.exists())
+	pic_path = "Pic/";
+	else
+	pic_path = "../x64/Release/Pic/";*/
+	
+
 
 }
 TrainView::~TrainView()
 {}
+
+void TrainView::loadTexture2D(QString str, GLuint &textureID) {
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+	QImage img(str);
+	QImage opengl_grass;
+	QSize size;
+	size = opengl_grass.size();
+	printf("%d, %d\n", size.height(), size.width());
+	opengl_grass = QGLWidget::convertToGLFormat(img);
+
+	size = opengl_grass.size();
+	printf("%d, %d\n", size.height(), size.width());
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, opengl_grass.width(), opengl_grass.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, opengl_grass.bits());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glDisable(GL_TEXTURE_2D);
+}
 
 void TrainView::resetArcball()
 //========================================================================
@@ -61,7 +90,7 @@ void TrainView::paintGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
+
 
 
 	// top view only needs one light
@@ -97,15 +126,19 @@ void TrainView::paintGL()
 	glLightfv(GL_LIGHT2, GL_POSITION, lightPosition3);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, blueLight);
 
-
+	
 
 	//*********************************************************************
 	// now draw the ground plane
 	//*********************************************************************
 	setupFloor();
 	glDisable(GL_LIGHTING);
+	glClearColor(0, 0, 0, 1);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+	loadTexture2D("ball.jpg", train_ID);
 	drawFloor(200, 10);
-	if(terrain)
+	if (terrain)
 		drawGround();
 
 	//*********************************************************************
@@ -138,7 +171,7 @@ void TrainView::paintGL()
 		Pnt3f trainDir = nextPos + -1 * nowPos;
 		float distanceL = sqrt(pow(trainDir.x, 2) + pow(trainDir.y, 2) + pow(trainDir.z, 2));
 
-		time += 0.1 * interpos.size()/1400;
+		time += 0.1 * interpos.size() / 1400;
 		//if (time > 1.0) time -= 1.0;
 		if (time > 300000) time = 0.1;
 	}
@@ -212,8 +245,8 @@ setProjection()
 		gluPerspective(90, aspect, 1, 300);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(nowPos.x+10*higher.x, nowPos.y+10*higher.y, nowPos.z+10*higher.z,
-			nowPos.x+10*higher.x + trainDir.x, nowPos.y+10*higher.y + trainDir.y, nowPos.z+ 10 * higher.z + trainDir.z,
+		gluLookAt(nowPos.x + 10 * higher.x, nowPos.y + 10 * higher.y, nowPos.z + 10 * higher.z,
+			nowPos.x + 10 * higher.x + trainDir.x, nowPos.y + 10 * higher.y + trainDir.y, nowPos.z + 10 * higher.z + trainDir.z,
 			nowOrt.x, nowOrt.y, nowOrt.z);
 		update();
 
@@ -297,16 +330,20 @@ void TrainView::drawStuff(bool doingShadows)
 		float length = sqrt((pointlength.x * pointlength.x) + (pointlength.y * pointlength.y) + (pointlength.z * pointlength.z));
 		if (doarc)
 			DIVIDE_LINE = length * 70;
-		else 
+		else
 			DIVIDE_LINE = length;
-		
-		
+
+
 		float percent = 1.0f / DIVIDE_LINE;
 		float t = 0;
+
 		
 		int structure = 100;
-		int upsidedownStruct=structure;
-		
+		int upsidedownStruct = structure;
+		if (!showstruct) {
+			structure = 9999999;
+			upsidedownStruct = 9999999;
+		}
 		int track_num = DIVIDE_LINE / inter;
 
 		//for curved tracks
@@ -343,7 +380,7 @@ void TrainView::drawStuff(bool doingShadows)
 		QMatrix4x4 QMbsplineorient = qorientMatrix*bsplineM;
 		QMatrix4x4 QMbsplinepos = qposMatrix*bsplineM;
 		GLUquadricObj *quadObj;
-		
+
 
 		switch (curve) {
 		case 0:
@@ -371,8 +408,8 @@ void TrainView::drawStuff(bool doingShadows)
 		for (int j = 0; j < DIVIDE_LINE; j++) {
 
 			qt0 = qt;
-			
-		
+
+
 			if (!doingShadows) {
 				glColor3ub(32, 32, 64);
 			}
@@ -436,9 +473,9 @@ void TrainView::drawStuff(bool doingShadows)
 				break;
 			}
 			interpos.push_back(qt);
-			
-			
-			
+
+
+
 			while (true) {
 				t += percent;
 				tmatrix[0] = pow(t, 3);
@@ -479,7 +516,7 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 			if (distance >= arclength)
 				distance = 0;
-				
+
 			qt1 = qt;
 			orient_t.normalize();
 			cross_t = (qt1 + -1 * qt0) * orient_t;
@@ -515,14 +552,14 @@ void TrainView::drawStuff(bool doingShadows)
 					glVertex3f(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
 					glVertex3f(qt1.x - 1.5*cross_t.x + orient_t.x*0.5, qt1.y - 1.5*cross_t.y + orient_t.y*0.5, qt1.z - 1.5*cross_t.z + orient_t.z*0.5);
 					glEnd();
-					if (interpos.size() % upsidedownStruct== 0 && orient_t.y < 0) {
+					if (interpos.size() % upsidedownStruct == 0 && orient_t.y < 0) {
 						glPushMatrix();
 						if (!doingShadows) {
 							glColor3ub(37, 77, 81);
 						}
 						glTranslatef(qt1.x + 1.5*cross_t.x + orient_t.x*0.5, 0, qt1.z + 1.5*cross_t.z + orient_t.z*0.5);
 						glRotatef(90, -1, 0, 0);
-	
+
 						//glRotatef(30, 0, 0, 1);
 						quadObj = gluNewQuadric();
 						gluCylinder(quadObj, 1.5, 0.1, qt1.y + 1.5*cross_t.y + orient_t.y*0.5, 30, 30);
@@ -552,7 +589,7 @@ void TrainView::drawStuff(bool doingShadows)
 					gluCylinder(quadObj, 1.5, 0.1, qt0.y, 30, 30);
 					glPopMatrix();
 				}
-				
+
 				break;
 			case 1:
 				glEnable(GL_LINE_SMOOTH);
@@ -600,7 +637,7 @@ void TrainView::drawStuff(bool doingShadows)
 						glPopMatrix();
 					}
 				}
-				
+
 				if (interpos.size() % structure == 0 && orient_t.y>0) {
 					//glLineWidth(5);
 					glPushMatrix();
@@ -678,13 +715,13 @@ void TrainView::drawStuff(bool doingShadows)
 			}
 
 
-			if (j >= DIVIDE_LINE-1) {
+			if (j >= DIVIDE_LINE - 1) {
 				lastpoints[0] = qt1;
 				lastpoints[1] = cross_t;
 			}
 
 			//wraparound to the first point
-			if (j>= DIVIDE_LINE-1 && i == this->m_pTrack->points.size() - 1) {
+			if (j >= DIVIDE_LINE - 1 && i == this->m_pTrack->points.size() - 1) {
 				switch (track) {
 				case 0:
 					if (!doingShadows) {
@@ -754,7 +791,7 @@ void TrainView::drawStuff(bool doingShadows)
 		}
 		//first = false;
 	}
-	
+
 	update();
 }
 
@@ -763,10 +800,10 @@ void TrainView::drawTrain(float) {
 	// orient
 	
 	float currentTime = time * speed *0.6f;
-	int position = currentTime ;
+	int position = currentTime;
 	//kinetic = 0;
 	//printf("%d\n", position);
-	
+
 	//Pnt3f nowPos = interpos[(position + 1) % interpos.size()];
 	//Pnt3f prePos = interpos[position % interpos.size()];
 	//Pnt3f nextPos = interpos[(position + 2) % interpos.size()];
@@ -784,15 +821,15 @@ void TrainView::drawTrain(float) {
 	glScalef(5, 10, 10);
 	arrow->render();
 	glPopMatrix();
-*/
+	*/
 	for (int i = 0; i < cars; i++) {
 		Pnt3f nowPos = interpos[position%interpos.size()];
 		Pnt3f nowOrt = interorient[position%interpos.size()];
 
 		Pnt3f nextPos = interpos[(position + 1) % interpos.size()];
 		Pnt3f nextOrt = interorient[(position + 1) % interpos.size()];
-		
-			
+
+
 		nowOrt.normalize();
 		float trainLength = 5.0f;
 		Pnt3f trainDir = nextPos + -1 * nowPos;
@@ -805,7 +842,7 @@ void TrainView::drawTrain(float) {
 
 		Pnt3f higher = nowOrt;
 		higher.normalize();
-		higher = higher*2;
+		higher = higher * 2;
 		Pnt3f p1(nowPos.x + cross_t.x + trainDir.x + higher.x, nowPos.y + cross_t.y + trainDir.y + higher.y, nowPos.z + cross_t.z + trainDir.z + higher.z);
 		Pnt3f p2(nowPos.x + cross_t.x - trainDir.x + higher.x, nowPos.y + cross_t.y - trainDir.y + higher.y, nowPos.z + cross_t.z - trainDir.z + higher.z);
 		Pnt3f p3(nowPos.x - cross_t.x - trainDir.x + higher.x, nowPos.y - cross_t.y - trainDir.y + higher.y, nowPos.z - cross_t.z - trainDir.z + higher.z);
@@ -821,8 +858,25 @@ void TrainView::drawTrain(float) {
 		Pnt3f p7(p3.x + nowOrt.x, p3.y + nowOrt.y, p3.z + nowOrt.z);
 		Pnt3f p8(p4.x + nowOrt.x, p4.y + nowOrt.y, p4.z + nowOrt.z);
 
+		glMatrixMode(GL_MODELVIEW);
 
-		glColor3ub(80, 200, 80);
+		glBindTexture(GL_TEXTURE_2D, train_ID);
+		glEnable(GL_TEXTURE_2D);
+
+
+		//glColor4ub(30, 100, 120, 255);
+		glBegin(GL_QUADS);  // Begin Drawing The Textured Quad
+		glTexCoord2f(0.0f, 0.0f);  glVertex3f(-5.0f, -5.0f, 0.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(5.0f, -5.0f, 0.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(5.0f, 5.0f, 0.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0f, 5.0f, 0.0f);
+		glEnd();   // Done Drawing The Textured Quad
+
+		glDisable(GL_TEXTURE_2D);
+
+		glEnable(GL_TEXTURE_2D);
+
+		//glColor3ub(80, 200, 80);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(p1.x, p1.y, p1.z);
@@ -834,7 +888,7 @@ void TrainView::drawTrain(float) {
 		glVertex3f(p4.x, p4.y, p4.z);
 		glEnd();
 
-		glColor3ub(200, 40, 40);
+		//glColor3ub(200, 40, 40);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(p5.x, p5.y, p5.z);
@@ -846,7 +900,7 @@ void TrainView::drawTrain(float) {
 		glVertex3f(p8.x, p8.y, p8.z);
 		glEnd();
 
-		glColor3ub(200, 200, 80);
+		//glColor3ub(200, 200, 80);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(p1.x, p1.y, p1.z);
@@ -894,12 +948,15 @@ void TrainView::drawTrain(float) {
 		glVertex3f(p7.x, p7.y, p7.z);
 		glEnd();
 
+
+		//glEnable(GL_TEXTURE_2D);
+
 		const float RADDEG = 57.29578;
 
 		float az = atan2(nowOrt.y, nowOrt.x)       * RADDEG;
 		float el = asin(nowOrt.z / 15) * RADDEG;
 
-		
+
 
 		/*glPushMatrix();
 		glColor3ub(255, 0, 0);
@@ -909,35 +966,35 @@ void TrainView::drawTrain(float) {
 		glScalef(5, 10, 10);
 		arrow->render();
 		glPopMatrix();
-*/
+		*/
 		if (i == 0) {
 			if (nextPos.y - nowPos.y > 0) {
 				float newenergy = (nowPos.y - lowestpoint)*9.8;
 				if (newenergy - energy > 0)
 					kinetic -= sqrt((newenergy - energy) * 1.5);
 				energy = newenergy; //Potential Energy
-				
+
 			}
 			else if (nextPos.y - nowPos.y < 0) {
 
 				float newenergy = (nowPos.y - lowestpoint)*9.8;
-				
+
 				if (energy - newenergy > 0)
 					kinetic += sqrt((energy - newenergy) * 1.5);
 				energy = newenergy;
 			}
 		}
-		
+
 
 		position -= 15;
-		if (position < 0) 
+		if (position < 0)
 			position += interpos.size();
 		position %= interpos.size();
 	}
 
 	energy = energy < 0 ? 0 : energy;
 	kinetic = kinetic < 3.5f ? 0 : kinetic - kinetic*0.002 - 3.5f;//friction
-	printf("%d %d\n", position, interpos.size());
+																  //printf("%d %d\n", position, interpos.size());
 	update();
 }
 
@@ -1009,17 +1066,17 @@ doPick(int mx, int my)
 
 void TrainView::drawGround() {
 	Terrain terrain;
-	
+
 	int h = terrain.ground.size();
 	int w = 0;
 	if (h > 0)
 		w = terrain.ground[0].size();
 	float h1 = 0.0f;
 	float h2 = 0.0f;
-	for (int x = 1; x < h; x++){
+	for (int x = 1; x < h; x++) {
 		glBegin(GL_TRIANGLE_STRIP);
-		for (int z = 1; z < w; z++){
-			
+		for (int z = 1; z < w; z++) {
+
 			h1 = terrain.ground[x][z];
 			int temp = (x* z)*(int)h1 % 5;
 			switch (temp) {
@@ -1045,11 +1102,11 @@ void TrainView::drawGround() {
 				h2 = 0.0f;
 			glVertex3f(x * 10.0f - h*5.0f, h1, z * 10.0f - w*5.0f);
 			glVertex3f((x + 1) * 10.0f - h*5.0f, h2, z * 10.0f - w*5.0f);
-			
+
 		}
 		glEnd();
 	}
-	
+
 
 }
 
@@ -1062,5 +1119,5 @@ void TrainView::loadModel(std::string path) {
 	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, "stone02.obj", NULL, true);
 
 
-	
+
 }

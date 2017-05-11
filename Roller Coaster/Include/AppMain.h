@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QFileDialog>
+#include <QtMultimedia/QMediaPlayer>
 #include "ui_AppMain.h"
 #include <QtOpenGL/qgl.h>
 #include "TrainView.h"  
@@ -26,7 +27,7 @@ public:
 
 	static AppMain *getInstance();
 	static AppMain *Instance;
-
+	QMediaPlayer* player;
 public:
 	// call this method when things change
 	void damageMe();
@@ -92,7 +93,7 @@ private:
 		void setGround();
 		void setArc();
 		void setStruct();
-
+		void setMusic();
 		void AddCar();
 		void DeleteCar();
 

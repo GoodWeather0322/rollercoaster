@@ -58,7 +58,8 @@ AppMain::AppMain(QWidget *parent)
 	connect( ui.Terrain		,SIGNAL(stateChanged(int)), this, SLOT(setGround()));
 	connect( ui.ArcLength	, SIGNAL(stateChanged(int)), this, SLOT(setArc()));
 	connect(ui.Structures	, SIGNAL(stateChanged(int)), this, SLOT(setStruct()));
-
+	connect(ui.Music, SIGNAL(stateChanged(int)), this, SLOT(setMusic()));
+		
 	connect(ui.caradd		, SIGNAL(clicked()), this, SLOT(AddCar()));
 	connect(ui.carsub		, SIGNAL(clicked()), this, SLOT(DeleteCar()));
 }
@@ -525,3 +526,11 @@ void AppMain::setStruct() {
 	this->trainview->showstruct = this->trainview->showstruct ? false : true;
 }
 
+
+void AppMain::setMusic() {
+	this->trainview->music = this->trainview->music ? false : true;
+	if (trainview->music)
+		player->play();
+	else
+		player->pause();
+}

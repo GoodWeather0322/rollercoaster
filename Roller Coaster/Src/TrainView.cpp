@@ -50,7 +50,19 @@ void TrainView::resetArcball()
 	// a little trial and error goes a long way
 	arcball.setup(this, 40, 250, .2f, .4f, 0);
 }
-
+void TrainView::initTextures() {
+	glClearColor(0, 0, 0, 1);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+	loadTexture2D("trainSide.jpg", trainSide_ID);
+	loadTexture2D("trainHead.jpg", trainHead_ID);
+	loadTexture2D("trainTop.jpg", trainTop_ID);
+	loadTexture2D("trainOneSide.jpg", trainOneSide_ID);
+	loadTexture2D("trainOneHead.jpg", trainOneHead_ID);
+	loadTexture2D("trainOneTop.jpg", trainOneTop_ID);
+	loadTexture2D("trainOneFront.jpg", trainOneFront_ID);
+	loadTexture2D("trainOneHeadFront.jpg", trainOneHeadFront_ID);
+}
 void TrainView::paintGL()
 {
 
@@ -133,18 +145,12 @@ void TrainView::paintGL()
 	//*********************************************************************
 	setupFloor();
 	glDisable(GL_LIGHTING);
-	glClearColor(0, 0, 0, 1);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
-	loadTexture2D("trainSide.jpg", trainSide_ID);
-	loadTexture2D("trainHead.jpg", trainHead_ID);
-	loadTexture2D("trainTop.jpg", trainTop_ID);
-	loadTexture2D("trainOneSide.jpg", trainOneSide_ID);
-	loadTexture2D("trainOneHead.jpg", trainOneHead_ID);
-	loadTexture2D("trainOneTop.jpg", trainOneTop_ID);
-	loadTexture2D("trainOneFront.jpg", trainOneFront_ID);
-	loadTexture2D("trainOneHeadFront.jpg", trainOneHeadFront_ID);
+	if (!init) {
+		initTextures();
+		init = true;
+	}
 	drawFloor(200, 10);
+	
 	if (terrain)
 		drawGround();
 
@@ -1151,6 +1157,98 @@ void TrainView::drawTrain(float) {
 				energy = newenergy;
 			}
 		}
+
+		QQuaternion angles = QQuaternion::fromDirection(QVector3D(trainDir.x, trainDir.y, trainDir.z), QVector3D(nowOrt.x, nowOrt.y, nowOrt.z));
+		//angles = angles.fromAxes(QVector3D(1,0,0), QVector3D(0,1,0), QVector3D(0,0,1));
+		float pitch, yaw, roll;
+		angles.getEulerAngles(&pitch, &yaw, &roll);
+		//printf("%.2f %.2f %.2f\n", pitch, yaw, roll);
+
+		higher.normalize();
+		glPushMatrix();
+		glColor3ub(37, 77, 81);
+		//float az = atan2(normalDir.y, normalDir.x)  * RADDEG;
+		//float el = asin(normalDir.z) * RADDEG;
+		//printf("%.2f\n",el);
+		float width = 1;
+		glTranslatef(nowPos.x + 0.75*cross_t.x + 0.8*trainDir.x + higher.x, nowPos.y + 0.75*cross_t.y + 0.8*trainDir.y + higher.y, nowPos.z + 0.75*cross_t.z + 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		//glRotatef(roll, -1, 0, 0);
+		GLUquadricObj *quadObj = gluNewQuadric();
+		for (float i = 0; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x - 0.75*cross_t.x + 0.8*trainDir.x + higher.x, nowPos.y - 0.75*cross_t.y + 0.8*trainDir.y + higher.y, nowPos.z - 0.75*cross_t.z + 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x + 0.75*cross_t.x - 0.8*trainDir.x + higher.x, nowPos.y + 0.75*cross_t.y - 0.8*trainDir.y + higher.y, nowPos.z + 0.75*cross_t.z - 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x - 0.75*cross_t.x - 0.8*trainDir.x + higher.x, nowPos.y - 0.75*cross_t.y - 0.8*trainDir.y + higher.y, nowPos.z - 0.75*cross_t.z - 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+
+
+		glPushMatrix();
+		glTranslatef(nowPos.x + 0.75*cross_t.x + 0.8*trainDir.x + higher.x, nowPos.y + 0.75*cross_t.y + 0.8*trainDir.y + higher.y, nowPos.z + 0.75*cross_t.z + 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		glRotatef(180, 0, 1, 0);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x - 0.75*cross_t.x + 0.8*trainDir.x + higher.x, nowPos.y - 0.75*cross_t.y + 0.8*trainDir.y + higher.y, nowPos.z - 0.75*cross_t.z + 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		glRotatef(180, 0, 1, 0);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x + 0.75*cross_t.x - 0.8*trainDir.x + higher.x, nowPos.y + 0.75*cross_t.y - 0.8*trainDir.y + higher.y, nowPos.z + 0.75*cross_t.z - 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		glRotatef(180, 0, 1, 0);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
+		glPushMatrix();
+		glTranslatef(nowPos.x - 0.75*cross_t.x - 0.8*trainDir.x + higher.x, nowPos.y - 0.75*cross_t.y - 0.8*trainDir.y + higher.y, nowPos.z - 0.75*cross_t.z - 0.8*trainDir.z + higher.z);
+		glRotatef(yaw + 90, 0, 1, 0);
+		glRotatef(roll, -1, 0, 0);
+		glRotatef(pitch, 0, 0, -1);
+		glRotatef(180, 0, 1, 0);
+		quadObj = gluNewQuadric();
+		for (float i = 0.0f; i < width; i += 0.1)
+			gluCylinder(quadObj, i, i, 1, 15, 15);
+		glPopMatrix();
 
 
 		position -= 15;

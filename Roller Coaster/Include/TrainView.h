@@ -55,6 +55,7 @@ public:
 
 	void loadModel(std::string path);
 	void loadTexture2D(QString str, GLuint &textureID);
+	void initTextures();
 
 public:
 	ArcBallCam		arcball;			// keep an ArcBall for the UI
@@ -77,6 +78,7 @@ public:
 	bool music = true;
 	bool showstruct = false;
 	float time=0;
+	bool init = false;
 	GLuint train_ID;
 	GLuint trainSide_ID;
 	GLuint trainHead_ID;

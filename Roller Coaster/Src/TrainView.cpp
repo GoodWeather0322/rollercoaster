@@ -136,7 +136,14 @@ void TrainView::paintGL()
 	glClearColor(0, 0, 0, 1);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
-	loadTexture2D("ball.jpg", train_ID);
+	loadTexture2D("trainSide.jpg", trainSide_ID);
+	loadTexture2D("trainHead.jpg", trainHead_ID);
+	loadTexture2D("trainTop.jpg", trainTop_ID);
+	loadTexture2D("trainOneSide.jpg", trainOneSide_ID);
+	loadTexture2D("trainOneHead.jpg", trainOneHead_ID);
+	loadTexture2D("trainOneTop.jpg", trainOneTop_ID);
+	loadTexture2D("trainOneFront.jpg", trainOneFront_ID);
+	loadTexture2D("trainOneHeadFront.jpg", trainOneHeadFront_ID);
 	drawFloor(200, 10);
 	if (terrain)
 		drawGround();
@@ -858,98 +865,258 @@ void TrainView::drawTrain(float) {
 		Pnt3f p7(p3.x + nowOrt.x, p3.y + nowOrt.y, p3.z + nowOrt.z);
 		Pnt3f p8(p4.x + nowOrt.x, p4.y + nowOrt.y, p4.z + nowOrt.z);
 
-		glMatrixMode(GL_MODELVIEW);
+		if (i == 0) {
+			p1 = p1 + trainDir*(-2.0 / 3);
+			p4 = p4 + trainDir*(-2.0 / 3);
+			p5 = p5 + trainDir*(-2.0 / 3);
+			p8 = p8 + trainDir*(-2.0 / 3);
 
-		glBindTexture(GL_TEXTURE_2D, train_ID);
-		glEnable(GL_TEXTURE_2D);
-
-
-		//glColor4ub(30, 100, 120, 255);
-		glBegin(GL_QUADS);  // Begin Drawing The Textured Quad
-		glTexCoord2f(0.0f, 0.0f);  glVertex3f(-5.0f, -5.0f, 0.0f);
-		glTexCoord2f(1.0f, 0.0f); glVertex3f(5.0f, -5.0f, 0.0f);
-		glTexCoord2f(1.0f, 1.0f); glVertex3f(5.0f, 5.0f, 0.0f);
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0f, 5.0f, 0.0f);
-		glEnd();   // Done Drawing The Textured Quad
-
-		glDisable(GL_TEXTURE_2D);
-
-		glEnable(GL_TEXTURE_2D);
-
-		//glColor3ub(80, 200, 80);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p1.x, p1.y, p1.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p2.x, p2.y, p2.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p3.x, p3.y, p3.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p4.x, p4.y, p4.z);
-		glEnd();
-
-		//glColor3ub(200, 40, 40);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p5.x, p5.y, p5.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p6.x, p6.y, p6.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p7.x, p7.y, p7.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p8.x, p8.y, p8.z);
-		glEnd();
-
-		//glColor3ub(200, 200, 80);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p1.x, p1.y, p1.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p4.x, p4.y, p4.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p8.x, p8.y, p8.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p5.x, p5.y, p5.z);
-		glEnd();
-
-		glColor3ub(80, 200, 200);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p1.x, p1.y, p1.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p2.x, p2.y, p2.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p6.x, p6.y, p6.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p5.x, p5.y, p5.z);
-		glEnd();
-
-		glColor3ub(200, 80, 200);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p2.x, p2.y, p2.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p3.x, p3.y, p3.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p7.x, p7.y, p7.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p6.x, p6.y, p6.z);
-		glEnd();
-
-		glColor3ub(200, 160, 80);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(p3.x, p3.y, p3.z);
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(p4.x, p4.y, p4.z);
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(p8.x, p8.y, p8.z);
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(p7.x, p7.y, p7.z);
-		glEnd();
+			p5 = p5 + nowOrt*(1.0 / 3);
+			p6 = p6 + nowOrt*(1.0 / 3);
+			p7 = p7 + nowOrt*(1.0 / 3);
+			p8 = p8 + nowOrt*(1.0 / 3);
 
 
-		//glEnable(GL_TEXTURE_2D);
+			Pnt3f pHead1(p1*(1.0 / 3) + p5*(2.0 / 3));
+			Pnt3f pHead2(p4*(1.0 / 3) + p8*(2.0 / 3));
+			Pnt3f pHead3(p4);
+			Pnt3f pHead4(p1);
+			Pnt3f pHead5(pHead1 + trainDir*(2.0 / 3));
+			Pnt3f pHead6(pHead2 + trainDir*(2.0 / 3));
+			Pnt3f pHead7(pHead3 + trainDir*(2.0 / 3));
+			Pnt3f pHead8(pHead4 + trainDir*(2.0 / 3));
+
+
+			glColor3ub(80, 200, 80);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glEnd();
+
+			glBindTexture(GL_TEXTURE_2D, trainOneTop_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneFront_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneSide_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneHead_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneSide_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneTop_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(pHead5.x, pHead5.y, pHead5.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(pHead6.x, pHead6.y, pHead6.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(pHead7.x, pHead7.y, pHead7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(pHead8.x, pHead8.y, pHead8.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneHead_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(pHead1.x, pHead1.y, pHead1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(pHead4.x, pHead4.y, pHead4.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(pHead8.x, pHead8.y, pHead8.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(pHead5.x, pHead5.y, pHead5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneHead_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(pHead2.x, pHead2.y, pHead2.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(pHead3.x, pHead3.y, pHead3.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(pHead7.x, pHead7.y, pHead7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(pHead6.x, pHead6.y, pHead6.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainOneTop_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(pHead1.x, pHead1.y, pHead1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(pHead2.x, pHead2.y, pHead2.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(pHead6.x, pHead6.y, pHead6.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(pHead5.x, pHead5.y, pHead5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+
+		}
+		else {
+			glColor3ub(80, 200, 80);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glEnd();
+
+			//glColor3ub(200, 40, 40);
+			glBindTexture(GL_TEXTURE_2D, trainTop_ID);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainHead_ID);
+			glEnable(GL_TEXTURE_2D);
+			//glColor3ub(200, 200, 80);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainSide_ID);
+			glEnable(GL_TEXTURE_2D);
+			glColor3ub(80, 200, 200);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p1.x, p1.y, p1.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p5.x, p5.y, p5.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainHead_ID);
+			glEnable(GL_TEXTURE_2D);
+			glColor3ub(200, 80, 200);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p2.x, p2.y, p2.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p6.x, p6.y, p6.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, trainSide_ID);
+			glEnable(GL_TEXTURE_2D);
+			glColor3ub(200, 160, 80);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(p3.x, p3.y, p3.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(p4.x, p4.y, p4.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(p8.x, p8.y, p8.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(p7.x, p7.y, p7.z);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+
+			//glEnable(GL_TEXTURE_2D);
+		}
 
 		const float RADDEG = 57.29578;
 

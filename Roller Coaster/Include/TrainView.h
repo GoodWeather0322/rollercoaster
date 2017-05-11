@@ -78,6 +78,14 @@ public:
 	bool showstruct = false;
 	float time=0;
 	GLuint train_ID;
+	GLuint trainSide_ID;
+	GLuint trainHead_ID;
+	GLuint trainTop_ID;
+	GLuint trainOneSide_ID;
+	GLuint trainOneHead_ID;
+	GLuint trainOneTop_ID;
+	GLuint trainOneFront_ID;
+	GLuint trainOneHeadFront_ID;
 
 	int speed = 50;
 	vector<Pnt3f> interpos;

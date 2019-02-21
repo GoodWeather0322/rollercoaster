@@ -1,7 +1,7 @@
 # Roller Coaster Animation
 Project 3/4: Roller Coaster 
 
-Created a program that creates a 3D world, and to allow the user to place a train (or roller coaster) track in the world. First person and third person views are both supported. The user is able to see and manipulate a set of control points that define the curve that is the track, and draw the track and animate the train moving along the track. </br>
+Created an OpenGL program that creates a 3D world, and to allow the user to place a train (or roller coaster) track in the world. First person and third person views are both supported. The user is able to see and manipulate a set of control points that define the curve that is the track, and draw the track and animate the train moving along the track. </br>
 Fundamentals used include Control Point manipulation to create curves, arc length parameterization, physic world gravity manipulation, etc. </br> </br>
 Video of program: </br>
 https://youtu.be/kbBGw7HDHws </br>

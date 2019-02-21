@@ -10,8 +10,7 @@ https://youtu.be/kbBGw7HDHws </br>
 
 Images of original: </br>
 ![alt text](https://raw.githubusercontent.com/GoodWeather0322/rollercoaster/master/projectimages/pic3.png) </br>
-![alt text](https://raw.githubusercontent.com/GoodWeather0322/rollercoaster/master/projectimages/pic4.png) </br>
-![alt text](https://raw.githubusercontent.com/GoodWeather0322/rollercoaster/master/projectimages/pic5.png) </br></br></br>
+![alt text](https://raw.githubusercontent.com/GoodWeather0322/rollercoaster/master/projectimages/pic4.png) </br></br></br>
 
 
 Program was later on improved by adding special effects, decoration and shader rendering. </br>

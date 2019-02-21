@@ -13,7 +13,7 @@ Images of original: </br>
 ![alt text](https://raw.githubusercontent.com/GoodWeather0322/rollercoaster/master/projectimages/pic4.png) </br></br></br>
 
 
-Program was later on improved by adding special effects, decoration and shader rendering. </br>
+Program was later on improved by adding special effects, decoration and shader rendering. We created a scenario where heroes face monsters on two sides of the colosseum. Heroes can also "evolve" to become stronger(Shown in the video).</br>
 Video of improved version: </br>
 https://youtu.be/VsTJfgrD7Vk </br>
 [![Watch the video](https://img.youtube.com/vi/VsTJfgrD7Vk/hqdefault.jpg)](https://youtu.be/VsTJfgrD7Vk)
